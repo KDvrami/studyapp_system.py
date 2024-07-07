@@ -352,8 +352,7 @@ def add_testresult():
         all_rank_three = request.form['all_rank_three']
         all_rank_four = request.form['all_rank_four']
         all_rank_five = request.form['all_rank_five']
-        rank = request.form['rank']
-        testresult_comments = request.form['comments']
+        testresult_comments = request.form['testresult_comments']
 
         TestResults.create(
             test_date=test_date,
@@ -371,7 +370,6 @@ def add_testresult():
             score_three=score_three,
             score_four=score_four,
             score_five=score_five,
-            rank=rank,
             testresult_comments=testresult_comments,
             user_total_rank=user_total_rank,
             all_total_rank=all_total_rank,
@@ -384,7 +382,8 @@ def add_testresult():
             all_rank_two=all_rank_two,
             all_rank_three=all_rank_three,
             all_rank_four=all_rank_four,
-            all_rank_five=all_rank_five
+            all_rank_five=all_rank_five,
+            testresult_comments=testresult_comments
         )
         db.close()
         return render_template(url_for('add_testresult'))
