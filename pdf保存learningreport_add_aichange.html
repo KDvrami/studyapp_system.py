@@ -1,0 +1,101 @@
+<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
+    <h1 class="h2">学習記録追加</h1>
+    <form action="/home/learningreport_add" method="post" enctype="multipart/form-data">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <input class="btn btn-primary" type="submit"></input>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">学習日</label>
+            <div class="input-group">
+                <input type="text" aria-label="learn date" class="form-control" placeholder="learn date" name="learn_date">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">学年</label>
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <select class="form-select" id="inputGroupSelect01" name="grade">
+                        <option value="小学1年生">小学1年生</option>
+                        <option value="小学2年生">小学2年生</option>
+                        <option value="小学3年生">小学3年生</option>
+                        <option value="小学4年生">小学4年生</option>
+                        <option value="小学5年生">小学5年生</option>
+                        <option value="小学6年生">小学6年生</option>
+                        <option value="中学1年生">中学1年生</option>
+                        <option value="中学2年生">中学2年生</option>
+                        <option value="中学3年生">中学3年生</option>
+                        <option value="高校1年生">高校1年生</option>
+                        <option value="高校2年生">高校2年生</option>
+                        <option value="高校3年生">高校3年生</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">氏名</label>
+            <div class="input-group">
+                <input type="text" aria-label="First name" class="form-control" placeholder="First name" name="first_name">
+                <input type="text" aria-label="Last name" class="form-control" placeholder="Last name" name="last_name">
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="input-group">
+                <span class="input-group-text">コース</span>
+                <select class="form-select" id="inputGroupSelect01" name="course">
+                    <option value="Aコース 10:00~11:30">Aコース 10:00~11:30</option>
+                    <option value="Bコース 11:45~13:15">Bコース 11:45~13:15</option>
+                    <option value="Cコース 13:30~15:00">Cコース 13:30~15:00</option>
+                    <option value="Dコース 15:15~16:45">Dコース 15:15~16:45</option>
+                    <option value="Eコース 17:00~18:30">Eコース 17:00~18:30</option>
+                    <option value="Fコース 18:45~20:15">Fコース 18:45~20:15</option>
+                    <option value="夏期講習">夏期講習</option>
+                </select>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">科目</label>
+            <div class="input-group">
+                <select class="form-select" id="inputGroupSelect01" name="subject">
+                    <option value="国語">国語</option>
+                    <option value="算数">算数</option>
+                    <option value="理科">理科</option>
+                    <option value="社会">社会</option>
+                    <option value="英語">英語</option>
+                    <option value="数Ⅰ・A">数Ⅰ・A</option>
+                    <option value="数Ⅱ・B">数Ⅱ・B</option>
+                    <option value="数Ⅰ">数Ⅰ</option>
+                    <option value="数Ⅱ">数Ⅱ</option>
+                    <option value="数Ⅲ">数Ⅲ</option>
+                    <option value="数A">数A</option>
+                    <option value="数B">数B</option>
+                    <option value="化学基礎">化学基礎</option>
+                    <option value="化学">化学</option>
+                    <option value="生物基礎">生物基礎</option>
+                    <option value="生物">生物</option>
+                    <option value="物理基礎">物理基礎</option>
+                    <option value="物理">物理</option>
+                    <option value="地学基礎">地学基礎</option>
+                    <option value="地学">地学</option>
+                    <option value="現代社会">現代社会</option>
+                    <option value="倫理">倫理</option>
+                    <option value="政治経済">政治経済</option>
+                    <option value="世界史">世界史</option>
+                    <option value="日本史">日本史</option>
+                    <option value="地理">地理</option>
+                </select>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">内容</label>
+            <div class="input-group">
+                <input type="file" class="form-control" name="text">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">コメント</label>
+            <div class="input-group">
+                <input type="text" aria-label="With textarea" class="form-control" placeholder="comment" name="learningreport_comments">
+            </div>
+        </div>
+    </form>
+</main>
