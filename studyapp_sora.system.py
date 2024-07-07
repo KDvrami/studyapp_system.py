@@ -242,7 +242,7 @@ def add_learningreport():
         last_name = request.form['last_name']
         course = request.form['course']
         subject = request.form['subject']
-        learningreport_comments = request.form['comments']
+        learningreport_comments = request.form['learningreport_comments']
 
         #アップロードされたpdfからテキストを抽出
         file = request.files['text']
@@ -263,7 +263,7 @@ def add_learningreport():
             learningreport_comments=learningreport_comments
         )
         db.close()
-        return render_template(url_for('add_learningreport'))
+        return redirect(url_for('add_learningreport'))
     return render_template('/learningreport_templates/learningreport_add.html')
 
 
@@ -279,9 +279,9 @@ def edit_learningreport(student_id, learningreport_id):
         learningreport.course = request.form['course']
         learningreport.subject = request.form['subject']
         learningreport.text = request.form['text']
-        learningreport.comments = request.form['comments']
+        learningreport.learningreport_comments = request.form['learningreport_comments']
         learningreport.save()
-        return render_template(url_for('edit_learningreport', student_id=student_id, learningreport_id=learningreport_id))
+        return redirect(url_for('edit_learningreport', student_id=student_id, learningreport_id=learningreport_id))
     return render_template('/learningreport_templates/learningreport_edit.html',learningreport=learningreport)
 
 
@@ -370,7 +370,6 @@ def add_testresult():
             score_three=score_three,
             score_four=score_four,
             score_five=score_five,
-            testresult_comments=testresult_comments,
             user_total_rank=user_total_rank,
             all_total_rank=all_total_rank,
             user_rank_one=user_rank_one,
@@ -386,7 +385,7 @@ def add_testresult():
             testresult_comments=testresult_comments
         )
         db.close()
-        return render_template(url_for('add_testresult'))
+        return redirect(url_for('add_testresult'))
     return render_template('/testresult_templates/testresult_add.html')
 
 #テスト結果詳細
@@ -416,8 +415,8 @@ def edit_testresult(testresult_id):
         testresult.score_four = request.form['score_four']
         testresult.score_five = request.form['score_five']
         testresult.rank = request.form['rank']
-        testresult.comments = request.form['comments']
-        return render_template(url_for('edit_testresult', testresult_id=testresult_id))
+        testresult.testresult_comments = request.form['testresult_comments']
+        return redirect(url_for('edit_testresult', testresult_id=testresult_id))
     return render_template("/testresult_templates/testresult_edit.html", testresult=testresult)
 
 
