@@ -214,7 +214,7 @@ def handletwo_all_learningreport():
 
 #学習記録一覧(個別)
 @app.route("/home/student_all/student_detail_<int:student_id>/learningreport_all", methods=['GET'])
-def all_learningreport(student_id):
+def all_learningreport():
     page = request.args.get(get_page_parameter(), type=int, default=1)
     per_page = 10
     total = LearningReports.select().count()
@@ -227,7 +227,7 @@ def all_learningreport(student_id):
 
 #学習記録詳細
 @app.route("/home/student_all/student_detail_<int:student_id>/learningreport_all_<int:learningreport_id>/learningreport_detail_<int:report_id>", methods=['GET'])
-def detail_learningreport(student_id, learningreport_id, report_id):
+def detail_learningreport(report_id):
     learningreport = LearningReports.get(LearningReports.id == report_id)
     return render_template('/learningreport_templates/learningreport_all.html', learningreport=learningreport)
 
