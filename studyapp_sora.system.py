@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory, flash
 from flask_paginate import Pagination, get_page_parameter
 from peewee import *
 from io import BytesIO
@@ -420,13 +420,32 @@ def add_text():
 
 
 #ファイルのアップロードを行う
-@app.route("/home/text_add", methods=['POST'])
+@app.route("/upload", methods=['POST'])
 def upload_text():
-    file = request.form.get('file')
-    file_name = 'uploaded_' + file.filename
-    file_path = os.path.join('files', file_name)
-    file.save(file_path)
-    return redirect(url_for('add_text'))
+    if 'file' not in request.files:
+        flash('No file part')
+        return redirect(request.url)
+    file = request.files['file']
+    if file.filename == '':
+        flash('No selected file')
+        return redirect(request.url)
+    if file and file.filename.endswith('.pdf'):
+        file_name = 'uploaded_' + file.filename
+        file_path = os.path.join('files', file_name)
+        file.save(file_path)
+        
+        # Save file to TextData
+        text_data = TextData.create(
+            text_name=file.filename,
+            text='Uploaded text file',
+            pdf_data=file.read()
+        )
+        text_data.save()
+        
+        return redirect(url_for('add_text'))
+    else:
+        flash('File is not a PDF')
+        return redirect(request.url)
 
 
 #ファイルのダウンロードを行う
