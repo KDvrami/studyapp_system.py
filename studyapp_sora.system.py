@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory, flash
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory, flash, send_file
 from flask_paginate import Pagination, get_page_parameter
 from peewee import *
 from io import BytesIO
@@ -23,8 +23,8 @@ class Students(Model):
 class TestResults(Model):
     test_date = DateField()
     test_name = CharField(max_length=255)
-    user_total_rank = IntegerField
-    all_total_rank = IntegerField
+    user_total_rank = IntegerField()
+    all_total_rank = IntegerField()
     grade = CharField(max_length=255)
     first_name = CharField(max_length=255)
     last_name = CharField(max_length=255)
@@ -493,7 +493,7 @@ def view_pdf(text_id):
     except TextData.DoesNotExist:
         return redirect(url_for('all_textdata'))
     
-    return render_template(BytesIO(textdata.pdf_data), attachment_filename=f"{textdata.text_name}.pdf", as_attachment=False)
+    return send_file(BytesIO(textdata.pdf_data), attchment_filename=f"{textdata.text_name}.pdf", as_attachment=False)
 
 
 #テキスト編集(表示)
