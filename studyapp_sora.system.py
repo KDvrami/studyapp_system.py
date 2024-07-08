@@ -436,7 +436,7 @@ def download_text(file):
 
 
 #ファイルの削除を行う
-@app.route('delete/<string:file>')
+@app.route('/delete/<string:file>')
 def delete_text(file):
     delete_file_path = os.path.join('files', file)
     os.remove(delete_file_path)
