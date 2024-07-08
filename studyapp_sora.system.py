@@ -430,7 +430,7 @@ def upload_text():
 
 
 #ファイルのダウンロードを行う
-@app.route('download/<string:file>')
+@app.route('/download/<string:file>')
 def download_text(file):
     return send_from_directory('files', file, as_attachment=True)
 
