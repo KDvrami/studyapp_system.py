@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>テキストファイルのアップロード、ダウンロード</title>
     <link rel="stylesheet" href="sidebar_style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -104,21 +104,32 @@
                   </div>
             </nav>
             <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
-                <h1 class="h2">学習記録追加</h1>
-                <form action="/home/text_add" method="post" enctype="multipart/form-data">
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <input class="btn btn-primary" type="submit"></input>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">テキスト名</label>
-                        <div class="input-group">
-                            <input type="text" aria-label="text name" class="form-control" placeholder="text name" name="text_name">
-                        </div>
-                    <div class="mb-3">
-                        <label for="formFileSm" class="form-label">テキストファイル</label>
-                        <input class="form-control form-control-sm" id="formFileSm" type="file" name="text">
-                    </div>
-                </form>
+                <h1>テキストファイルのアップロード・ダウンロード</h1>
+                <h2>ファイルのアップロード</h2>
+                <p>
+                    <form method="POST" action="/upload" enctype="multipart/form-data">
+                        <p><label for="file">アップロードするファイルの選択</label>
+                            <input type="file" name="file">
+                        </p>
+                        <button type="submit">アップロード</button>
+                    </form> 
+                </p>
+                <h2>アップロードしたファイルの一覧</h2>
+                <table>
+                    <tr>
+                        <th>アップロードしたファイル</th>
+                    </tr>
+                    {% for file in pdf_file %}
+                        <tr>
+                            <td><a href="/download{{ file }}">{{ file }}のダウンロード</a></td>
+                            <td><a href="/delete/{{ file }}">{{ file }}の削除</a></td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td>データがありません</td>
+                        </tr>
+                    {% endfor %}
+                </table>
             </main>
         </div>
     </div>

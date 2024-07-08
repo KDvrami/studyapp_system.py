@@ -1,8 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, send_file
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory
 from flask_paginate import Pagination, get_page_parameter
 from peewee import *
 from io import BytesIO
-import pypdf
+import os
 
 #データベースの設定
 db = SqliteDatabase('studyapp_sora.db')
@@ -420,28 +420,35 @@ def edit_testresult(testresult_id):
     return render_template("/testresult_templates/testresult_edit.html", testresult=testresult)
 
 
-#テキスト追加
-@app.route("/home/text_add", methods=['GET','POST'])
-def add_textdata():
-    if request.method == 'POST':
-        text_name = request.form['text_name']
+#テキスト追加操作画面
+@app.route("/home/text_add")
+def add_text():
+    pdf_files = [file for file in os.listdir('files') if file.endswith('.pdf')]
+    return render_template('text_templates/text_add.html', pdf_files=pdf_files)
 
-        #アップロードされたpdfからテキストを抽出
-        file = request.files['text']
-        pdf_reader = pypdf.PdfReader(file)
-        text = ''
-        for page in pdf_reader.pages:
-            text += page.extract_text()
 
-        #データベースに保存
-        TextData.create(
-            text_name=text_name,
-            text=text,
-            pdf_data=file.read()
-        )
-        db.close()
-        return redirect(url_for('all_textdata'))
-    return render_template('/text_templates/text_add.html')
+#ファイルのアップロードを行う
+@app.route("/home/text_add", methods=['POST'])
+def upload_text():
+    file = request.form.get('file')
+    file_name = 'uploaded_' + file.filename
+    file_path = os.path.join('files', file_name)
+    file.save(file_path)
+    return redirect(url_for('add_text'))
+
+
+#ファイルのダウンロードを行う
+@app.route('download/<string:file>')
+def download_text(file):
+    return send_from_directory('files', file, as_attachment=True)
+
+
+#ファイルの削除を行う
+@app.route('delete/<string:file>')
+def delete_text(file):
+    delete_file_path = os.path.join('files', file)
+    os.remove(delete_file_path)
+    return redirect(url_for('add_text'))
 
 
 #テキスト一覧
