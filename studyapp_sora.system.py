@@ -244,13 +244,6 @@ def add_learningreport():
         subject = request.form['subject']
         learningreport_comments = request.form['learningreport_comments']
 
-        #アップロードされたpdfからテキストを抽出
-        file = request.files['text']
-        pdf_reader = pypdf.PdfReader(file)
-        text = ''
-        for page in pdf_reader.pages:
-            text += page.extract_text()
-
         #データベースに保存
         LearningReports.create(
             learn_date=learn_date,
@@ -259,7 +252,6 @@ def add_learningreport():
             last_name=last_name,
             course=course,
             subject=subject,
-            text=text,
             learningreport_comments=learningreport_comments
         )
         db.close()
@@ -496,26 +488,6 @@ def edit_text(text_id):
     return render_template('/text_templates/text_edit.html', text=text)
 
 #テキスト編集(保存)
-@app.route("/home/text_all/text_detail_<int:text_id>/text_edit", methods=['POST'])
-def save_edited_text(text_id):
-    text = TextData.get_or_none(TextData.id == text_id)
-    if text is None:
-        return redirect(url_for('all_textdata'))
-    
-    text_name = request.form['text_name']
-    file = request.files['text']
-    pdf_reader = pypdf.PdfReader(file)
-    extracted_text = ''
-    for page in pdf_reader.pages:
-        extracted_text += page.extract_text()
-
-    #データベースを更新
-    text.text_name = text_name
-    text.text = extracted_text
-    text.pdf_data = file.read()
-    text.save()
-
-    return redirect(url_for('all_textdata'))
 
        
 if __name__ == '__main__':
