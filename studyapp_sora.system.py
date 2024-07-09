@@ -493,7 +493,7 @@ def view_pdf(text_id):
     except TextData.DoesNotExist:
         return redirect(url_for('all_textdata'))
     
-    return send_file(BytesIO(textdata.pdf_data), attachment_filename=f"{textdata.text_name}.pdf", as_attachment=True)
+    return send_file(BytesIO(textdata.pdf_data), attachment_filename=f"{textdata.text_name}.pdf", as_attachment=False)
 
 
 #テキスト編集(表示)
