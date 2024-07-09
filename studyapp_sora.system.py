@@ -506,6 +506,6 @@ def edit_text(text_id):
     
     return render_template('/text_templates/text_edit.html', text=text)
 
-       
+
 if __name__ == '__main__':
     app.run(debug=True)
