@@ -425,20 +425,27 @@ def upload_text():
     if 'file' not in request.files:
         flash('No file part')
         return redirect(request.url)
+    
     file = request.files['file']
+
     if file.filename == '':
         flash('No selected file')
         return redirect(request.url)
+    
     if file and file.filename.endswith('.pdf'):
         file_name = 'uploaded_' + file.filename
         file_path = os.path.join('files', file_name)
         file.save(file_path)
         
+        # Read the file data as bytes
+        with open(file_path, 'rb') as f:
+            pdf_data = f.read()
+
         # Save file to TextData
         text_data = TextData.create(
             text_name=file.filename,
             text='Uploaded text file',
-            pdf_data=file.read()
+            pdf_data=pdf_data
         )
         text_data.save()
         

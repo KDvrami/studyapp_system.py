@@ -119,7 +119,7 @@
                     <tr>
                         <th>アップロードしたファイル</th>
                     </tr>
-                    {% for file in pdf_file %}
+                    {% for file in pdf_files %}
                         <tr>
                             <td><a href="/download{{ file }}">{{ file }}のダウンロード</a></td>
                             <td><a href="/delete/{{ file }}">{{ file }}の削除</a></td>
