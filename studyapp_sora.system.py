@@ -493,7 +493,7 @@ def view_pdf(text_id):
     except TextData.DoesNotExist:
         return redirect(url_for('all_textdata'))
     
-    return send_file(BytesIO(textdata.pdf_data), attchment_filename=f"{textdata.text_name}.pdf", as_attachment=True)
+    return send_file(BytesIO(textdata.pdf_data), attachment_filename=f"{textdata.text_name}.pdf", as_attachment=True)
 
 
 #テキスト編集(表示)
@@ -505,8 +505,6 @@ def edit_text(text_id):
         return redirect(url_for('all_textdata'))
     
     return render_template('/text_templates/text_edit.html', text=text)
-
-#テキスト編集(保存)
 
        
 if __name__ == '__main__':
