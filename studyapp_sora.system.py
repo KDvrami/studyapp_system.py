@@ -7,7 +7,6 @@ import os
 #データベースの設定
 db = SqliteDatabase('studyapp_sora.db')
 
-#データベースのテーブル設定
 class Students(Model):
     first_name = CharField(max_length=255)
     last_name = CharField(max_length=255)
@@ -83,6 +82,7 @@ app = Flask(__name__)
 def login():
     return render_template('others_templates/sora_login.html')
 
+
 #home画面
 @app.route("/home", methods=['GET'])
 def home():
@@ -157,6 +157,34 @@ def handletwo_all_student():
 def detail_student(student_id):
     student = Students.get(Students.id == student_id)
     return render_template('/student_templates/student_detail.html', student=student)
+
+
+#生徒別テスト結果一覧画面
+@app.route("/home/studen_all/student_detail_testresult/<int:student_id>", methods=['GET'])
+def student_all_testresult(student_id):
+    student = Students.get(Students.id == student_id)
+    first_name = student.first_name
+    last_name = student.last_name
+    
+    page = request.args.get(get_page_parameter(), type=int, default=1)
+    per_page = 10
+    
+    query = TestResults.select().where((TestResults.first_name == first_name) & (TestResults.last_name == last_name))
+    total = query.count()
+    testresults = query.paginate(page, per_page)
+
+    pagination = Pagination(page=page, total=total, per_page=per_page, css_framework='bootstrap5')
+
+    return render_template('/student_templates/student_all_testresult.html', testresults=testresults, pagination=pagination, student=student)
+
+
+#ハンドルケース1:表示する生徒がいない場合
+@app.route("/home/testresult_all/no_testresults", methods=['GET'])
+def handleone_all_testresult():
+    testresults = TestResults.select()
+    if not testresults:
+        no_testresults_message = "No test results found."
+        return render_template('/testresult_templates/testresult_all.html', no_testresults_message = no_testresults_message)
 
 
 #生徒情報編集
