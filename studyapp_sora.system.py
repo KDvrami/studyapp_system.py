@@ -185,6 +185,13 @@ def handleone_student_all_testresult():
     if not testresults:
         no_testresults_message = "No test results found."
         return render_template('/student_templates/student_all_testresult.html', no_testresults_message = no_testresults_message)
+    
+
+#生徒別テスト結果一覧からテスト結果詳細表示
+@app.route("/home/studen_all/student_detail_testresult/<int:testresult_id>", methods=['POST'])
+def call_detail_testresult(testresult_id):
+    testresult = TestResults.get(TestResults.id == testresult_id)
+    return redirect(url_for('detail_testresult', testresult_id=testresult.id))
 
 
 #生徒情報編集

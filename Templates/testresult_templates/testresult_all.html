@@ -120,9 +120,6 @@
                                     <th scope="col">氏名</th>
                                     <th scope="col"></th>
                                     <th scope="col">テスト名</th>
-                                    <th scope="col"></th>
-                                    <th scope="col">科目</th>
-                                    <th scope="col">点数</th>
                                     <th scope="col">テスト実施日</th>
                                 </tr>
                             </thead>
@@ -133,10 +130,7 @@
                                         <td>{{ testresult.first_name }}</td>
                                         <td>{{ testresult.last_name }}</td>
                                         <td>{{ testresult.test_name }}</td>
-                                        <td>{{ testresult.gaibu_test_name }}</td>
-                                        <td>{{ testresult.subject }}</td>
-                                        <td>{{ testresult.score }}</td>
-                                        <td>{{ testresult.date }}</td>
+                                        <td>{{ testresult.test_date }}</td>
                                     </tr>
                                 {% endfor %}
                             </tbody>

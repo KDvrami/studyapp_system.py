@@ -109,6 +109,7 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
+                                <th>id</th>
                                 <th>Test Name</th>
                                 <th>Subject</th>
                                 <th>Score</th>
@@ -117,7 +118,8 @@
                         <tbody>
                             {% for result in testresults %}
                                 <tr>
-                                    <td>{{ result.test_name }}</td>
+                                    <td><a class="link-secondary text-decoration-none" href="{{ url_for('detail_testresult', testresult_id=result.id) }}">{{ result.id }}</a></td>
+                                    <td><a class="link-secondary text-decoration-none" href="{{ url_for('detail_testresult', testresult_id=result.id) }}">{{ result.test_name }}</a></td>
                                     <td>{{ result.subject_one }}</td>
                                     <td>{{ result.score_one }}</td>
                                 </tr>
@@ -134,7 +136,7 @@
                                         </a>
                                     </li>
                                 {% endif %}
-                                {% for page in pagination.iter_pages() %}
+                                {% for page in pagination.page_range %}
                                     <li class="page-item {% if page == pagination.page %}active{% endif %}">
                                         <a class="page-link" href="{{ url_for('student_all_testresult', page=page, student_id=student.id) }}">{{ page }}</a>
                                     </li>
