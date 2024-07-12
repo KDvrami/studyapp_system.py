@@ -179,12 +179,12 @@ def student_all_testresult(student_id):
 
 
 #ハンドルケース1:表示する生徒がいない場合
-@app.route("/home/testresult_all/no_testresults", methods=['GET'])
-def handleone_all_testresult():
+@app.route("/home/testresult_all/no_student_testresults", methods=['GET'])
+def handleone_student_all_testresult():
     testresults = TestResults.select()
     if not testresults:
         no_testresults_message = "No test results found."
-        return render_template('/testresult_templates/testresult_all.html', no_testresults_message = no_testresults_message)
+        return render_template('/student_templates/student_all_testresult.html', no_testresults_message = no_testresults_message)
 
 
 #生徒情報編集
