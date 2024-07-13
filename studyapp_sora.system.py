@@ -59,7 +59,6 @@ class LearningReports(Model):
     last_name = CharField(max_length=255)
     course = CharField(max_length=255)
     subject = CharField(max_length=255)
-    text = TextField()
     learningreport_comments = CharField(max_length=255)
 
     class Meta:
