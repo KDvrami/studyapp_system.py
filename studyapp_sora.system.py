@@ -185,14 +185,35 @@ def handleone_student_all_testresult():
     if not testresults:
         no_testresults_message = "No test results found."
         return render_template('/student_templates/student_all_testresult.html', no_testresults_message = no_testresults_message)
+
+
+#生徒別学習記録一覧画面
+@app.route("/home/studen_all/student_detail_learningreport/<int:student_id>", methods=['GET'])
+def student_all_learningreport(student_id):
+    student = Students.get(Students.id == student_id)
+    first_name = student.first_name
+    last_name = student.last_name
     
+    page = request.args.get(get_page_parameter(), type=int, default=1)
+    per_page = 10
+    
+    query = LearningReports.select().where((LearningReports.first_name == first_name) & (LearningReports.last_name == last_name))
+    total = query.count()
+    learningreports = query.paginate(page, per_page)
 
-#生徒別テスト結果一覧からテスト結果詳細表示
-@app.route("/home/studen_all/student_detail_testresult/<int:testresult_id>", methods=['POST'])
-def call_detail_testresult(testresult_id):
-    testresult = TestResults.get(TestResults.id == testresult_id)
-    return redirect(url_for('detail_testresult', testresult_id=testresult.id))
+    pagination = Pagination(page=page, total=total, per_page=per_page, css_framework='bootstrap5')
 
+    return render_template('/student_templates/student_all_learningreport.html', learningreports=learningreports, pagination=pagination, student=student)
+
+
+#ハンドルケース1:表示する生徒がいない場合
+@app.route("/home/learningreport_all/no_student_learningreports", methods=['GET'])
+def handleone_student_all_learningreport():
+    learningreports = LearningReports.select()
+    if not learningreports:
+        no_learningreports_message = "No learning reports found."
+        return render_template('/student_templates/student_all_learningreport.html', no_learningreports_message = no_learningreports_message)
+    
 
 #生徒情報編集
 @app.route("/home/student_all/student_detail_<int:student_id>/student_edit", methods=['GET','POST'])
@@ -213,7 +234,7 @@ def edit_student(student_id):
 
 # 学習記録一覧(全体)
 @app.route("/home/learningreport_all", methods=['GET'])
-def all_learningreport_all():
+def all_learningreport():
     page = request.args.get(get_page_parameter(), type=int, default=1)
     per_page = 10
     total = LearningReports.select().count()
@@ -246,18 +267,6 @@ def handletwo_all_learningreport():
     if page_number > paginator.total_pages:
         invalid_page_message = "Invalid page number"
         return render_template('/learningreport_templates/learningreport_all.html', invalid_page_message = invalid_page_message)
-
-#学習記録一覧(個別)
-@app.route("/home/student_all/student_detail_<int:student_id>/learningreport_all", methods=['GET'])
-def all_learningreport():
-    page = request.args.get(get_page_parameter(), type=int, default=1)
-    per_page = 10
-    total = LearningReports.select().count()
-    learningreports = LearningReports.select().paginate(page, per_page)
-
-    pagination = Pagination(page=page, total=total, per_page=per_page, css_framework='bootstrap5')
-
-    return render_template('/learningreport_templates/learningreport_all.html', learningreports=learningreports, pagination=pagination)
 
 
 #学習記録詳細
