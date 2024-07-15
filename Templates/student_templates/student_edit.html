@@ -104,7 +104,10 @@
                   </div>
             </nav>
             <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
-                <h1 class="h2">Student Detail</h1>
+                <h1 class="h2">生徒情報編集</h1>
+                <div class="mb-3">
+                    <a href="{{ url_for('detail_student', student_id=student.id) }}" class="btn btn-primary">詳細画面へ</a>
+                </div>
                 <form action="{{ url_for('edit_student', student_id=student.id) }}" method="post">
                     <div class="mb-3">
                         <label class="form-label">Name</label>

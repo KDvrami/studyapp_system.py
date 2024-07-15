@@ -126,11 +126,11 @@
                             <tbody>
                                 {% for testresult in testresults %}
                                     <tr>
-                                        <td>{{ testresult.id }}</td>
-                                        <td>{{ testresult.first_name }}</td>
-                                        <td>{{ testresult.last_name }}</td>
-                                        <td>{{ testresult.test_name }}</td>
-                                        <td>{{ testresult.test_date }}</td>
+                                        <td><a class="link-secondary text-decoration-none" href="{{ url_for('detail_testresult', testresult_id=testresult.id)}}">{{ testresult.id }}</a></td>
+                                        <td><a class="link-secondary text-decoration-none" href="{{ url_for('detail_testresult', testresult_id=testresult.id)}}">{{ testresult.first_name }}</a></td>
+                                        <td><a class="link-secondary text-decoration-none" href="{{ url_for('detail_testresult', testresult_id=testresult.id)}}">{{ testresult.last_name }}</a></td>
+                                        <td><a class="link-secondary text-decoration-none" href="{{ url_for('detail_testresult', testresult_id=testresult.id)}}">{{ testresult.test_name }}</a></td>
+                                        <td><a class="link-secondary text-decoration-none" href="{{ url_for('detail_testresult', testresult_id=testresult.id)}}">{{ testresult.test_date }}</a></td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
@@ -138,7 +138,7 @@
                         <nav aria-label="Page navigation">
                             <ul class="pagination">
                                 {% if pagination.has_prev %}
-                                    <li class="page-item"><a class="page-link" href="{{ url_for('all_testresult', page=pagination.prev_num) }}">Previous</a></li>
+                                    <li class="page-item"><a class="page-link" href="{{ url_for('all_testresult', page=pagination.page - 1) }}">Previous</a></li>
                                 {% else %}
                                     <li class="page-item disabled"><span class="page-link">Previous</span></li>
                                 {% endif %}
@@ -156,7 +156,7 @@
                                 {% endfor %}
                 
                                 {% if pagination.has_next %}
-                                    <li class="page-item"><a class="page-link" href="{{ url_for('all_testresult', page=pagination.next_num) }}">Next</a></li>
+                                    <li class="page-item"><a class="page-link" href="{{ url_for('all_testresult', page=pagination.page + 1) }}">Next</a></li>
                                 {% else %}
                                     <li class="page-item disabled"><span class="page-link">Next</span></li>
                                 {% endif %}

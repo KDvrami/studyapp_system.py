@@ -248,9 +248,10 @@ def all_learningreport():
 @app.route("/home/learningreport_all/no_learningreports", methods=['GET'])
 def handleone_all_learningreport():
     learningreports = LearningReports.select()
+    pagination = Pagination(page=1, total=0, per_page=10, css_framework='bootstrap5')  # Add default pagination
     if not learningreports:
         no_learningreports_message = "No learning reports found."
-        return render_template('/learningreport_templates/learningreport_all.html', no_learningreports_message = no_learningreports_message)
+        return render_template('/learningreport_templates/learningreport_all.html', no_learningreports_message = no_learningreports_message, pagination=pagination)
     
 
 #ハンドルケース2:要求されたページがページ合計より多い場合
@@ -261,18 +262,18 @@ def handletwo_all_learningreport():
     page_number = request.args.get('page', default = 1, type = int)
     per_page = 10
 
-    paginator = Pagination(data=learningreports, per_page=per_page)
+    paginator = Pagination(data=learningreports, per_page=per_page, css_framework='bootstrap5')
 
     if page_number > paginator.total_pages:
         invalid_page_message = "Invalid page number"
-        return render_template('/learningreport_templates/learningreport_all.html', invalid_page_message = invalid_page_message)
+        return render_template('/learningreport_templates/learningreport_all.html', invalid_page_message = invalid_page_message, pagination=paginator)
 
 
 #学習記録詳細
-@app.route("/home/student_all/student_detail_<int:student_id>/learningreport_all_<int:learningreport_id>/learningreport_detail_<int:report_id>", methods=['GET'])
-def detail_learningreport(report_id):
-    learningreport = LearningReports.get(LearningReports.id == report_id)
-    return render_template('/learningreport_templates/learningreport_all.html', learningreport=learningreport)
+@app.route("/home/learningreport_all/learningreport_detail_<int:learningreport_id>", methods=['GET'])
+def detail_learningreport(learningreport_id):
+    learningreport = LearningReports.get(LearningReports.id == learningreport_id)
+    return render_template('/learningreport_templates/learningreport_detail.html', learningreport=learningreport, pagination=None)
 
 
 #学習記録追加
@@ -303,8 +304,8 @@ def add_learningreport():
 
 
 #学習記録編集
-@app.route("/home/student_all/student_detail_<int:student_id>/learningreport_all/learningreport_detail_<int:learningreport_id>/learningreport_edit", methods=['GET','POST'])
-def edit_learningreport(student_id, learningreport_id):
+@app.route("/home/learningreport_all/learningreport_detail_<int:learningreport_id>/learningreport_edit", methods=['GET','POST'])
+def edit_learningreport(learningreport_id):
     learningreport = LearningReports.get(LearningReports.id == learningreport_id)
     if request.method == 'POST':
         learningreport.learn_date = request.form['learn_date']
@@ -313,10 +314,9 @@ def edit_learningreport(student_id, learningreport_id):
         learningreport.last_name = request.form['last_name']
         learningreport.course = request.form['course']
         learningreport.subject = request.form['subject']
-        learningreport.text = request.form['text']
         learningreport.learningreport_comments = request.form['learningreport_comments']
         learningreport.save()
-        return redirect(url_for('edit_learningreport', student_id=student_id, learningreport_id=learningreport_id))
+        return redirect(url_for('edit_learningreport', learningreport_id=learningreport_id))
     return render_template('/learningreport_templates/learningreport_edit.html',learningreport=learningreport)
 
 
