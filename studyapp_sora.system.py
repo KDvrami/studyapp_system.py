@@ -1,7 +1,6 @@
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory, flash, send_file
+from flask import Flask, render_template, request, redirect, url_for, flash, send_file
 from flask_paginate import Pagination, get_page_parameter
 from peewee import *
-from io import BytesIO
 import os
 
 #データベースの設定
@@ -47,7 +46,6 @@ class TestResults(Model):
     all_rank_three = IntegerField()
     all_rank_four = IntegerField()
     all_rank_five = IntegerField()
-    testresult_comments = CharField(max_length=255)
 
     class Meta:
         database = db
@@ -59,6 +57,7 @@ class LearningReports(Model):
     last_name = CharField(max_length=255)
     course = CharField(max_length=255)
     subject = CharField(max_length=255)
+    used_text = CharField(max_length=255)
     learningreport_comments = CharField(max_length=255)
 
     class Meta:
@@ -75,6 +74,7 @@ class TextData(Model):
 db.create_tables([Students, TestResults, LearningReports, TextData])
     
 app = Flask(__name__)
+app.secret_key = 'supersecretkey'
 
 #ログイン画面
 @app.route("/sora_login", methods=['GET'])
@@ -121,9 +121,7 @@ def all_student():
     per_page = 10
     total = Students.select().count()
     students = Students.select().paginate(page, per_page)
-
     pagination = Pagination(page=page, total=total, per_page=per_page, css_framework='bootstrap5')
-
     return render_template('/student_templates/student_all.html', students=students, pagination=pagination)
 
 
@@ -149,6 +147,20 @@ def handletwo_all_student():
     if page_number > paginator.total_pages:
         invalid_page_message = "Invalid page number"
         return render_template('/student_templates/student_all.html', invalid_page_message = invalid_page_message)
+    
+
+#生徒削除画面
+@app.route("/student_delete/<int:student_id>", methods=['POST'])
+def delete_student(student_id):
+    try:
+        student = Students.get(Students.id == student_id)
+        student.delete_instance()
+        db.commit()
+        flash('Student deleted successfully.', 'success')
+    except Students.DoesNotExist:
+        flash('Student not found', 'error')
+        
+    return redirect(url_for('all_student'))
 
 
 #生徒詳細画面
@@ -269,6 +281,19 @@ def handletwo_all_learningreport():
         return render_template('/learningreport_templates/learningreport_all.html', invalid_page_message = invalid_page_message, pagination=paginator)
 
 
+#学習記録削除画面
+@app.route("/learningreport_delete/<int:learningreport_id>", methods=['POST'])
+def delete_learningreport(learningreport_id):
+    try:
+        learningreport = LearningReports.get(LearningReports.id == learningreport_id)
+        learningreport.delete_instance()
+        flash('Learningreport deleted successfully.', 'success')
+    except LearningReports.DoesNotExist:
+        flash('Learningreport not found', 'error')
+
+    return redirect(url_for('all_learningreport'))
+
+
 #学習記録詳細
 @app.route("/home/learningreport_all/learningreport_detail_<int:learningreport_id>", methods=['GET'])
 def detail_learningreport(learningreport_id):
@@ -286,6 +311,7 @@ def add_learningreport():
         last_name = request.form['last_name']
         course = request.form['course']
         subject = request.form['subject']
+        used_text = request.form['used_text']
         learningreport_comments = request.form['learningreport_comments']
 
         #データベースに保存
@@ -296,6 +322,7 @@ def add_learningreport():
             last_name=last_name,
             course=course,
             subject=subject,
+            used_text=used_text,
             learningreport_comments=learningreport_comments
         )
         db.close()
@@ -314,6 +341,7 @@ def edit_learningreport(learningreport_id):
         learningreport.last_name = request.form['last_name']
         learningreport.course = request.form['course']
         learningreport.subject = request.form['subject']
+        learningreport.used_text = request.form['used_text']
         learningreport.learningreport_comments = request.form['learningreport_comments']
         learningreport.save()
         return redirect(url_for('edit_learningreport', learningreport_id=learningreport_id))
@@ -355,6 +383,20 @@ def handletwo_all_testresult():
     if page_number > paginator.total_pages:
         invalid_page_message = "Invalid page number"
         return render_template('/testresult_templates/testresult_all.html', invalid_page_message = invalid_page_message)
+    
+
+#テスト結果削除画面
+@app.route("/testresult_delete/<int:testresult_id>", methods=['POST'])
+def delete_testresult(testresult_id):
+    try:
+        testresult = TestResults.get(TestResults.id == testresult_id)
+        testresult.delete_instance()
+        flash('Testresult deleted successfully.', 'success')
+    except TestResults.DoesNotExist:
+        flash('testresult not found', 'error')
+
+    return redirect(url_for('all_testresult'))
+    
 
 #テスト結果追加
 @app.route("/home/testresult_add", methods=['GET','POST'])
@@ -387,7 +429,6 @@ def add_testresult():
         all_rank_three = request.form['all_rank_three']
         all_rank_four = request.form['all_rank_four']
         all_rank_five = request.form['all_rank_five']
-        testresult_comments = request.form['testresult_comments']
 
         TestResults.create(
             test_date=test_date,
@@ -416,8 +457,7 @@ def add_testresult():
             all_rank_two=all_rank_two,
             all_rank_three=all_rank_three,
             all_rank_four=all_rank_four,
-            all_rank_five=all_rank_five,
-            testresult_comments=testresult_comments
+            all_rank_five=all_rank_five
         )
         db.close()
         return redirect(url_for('add_testresult'))
@@ -449,37 +489,46 @@ def edit_testresult(testresult_id):
         testresult.score_three = request.form['score_three']
         testresult.score_four = request.form['score_four']
         testresult.score_five = request.form['score_five']
-        testresult.rank = request.form['rank']
-        testresult.testresult_comments = request.form['testresult_comments']
+        testresult.user_total_rank = request.form['user_total_rank']
+        testresult.all_total_rank = request.form['all_total_rank']
+        testresult.user_rank_one= request.form['user_rank_one']
+        testresult.user_rank_two= request.form['user_rank_two']
+        testresult.user_rank_three= request.form['user_rank_three']
+        testresult.user_rank_four= request.form['user_rank_four']
+        testresult.user_rank_five= request.form['user_rank_five']
+        testresult.all_rank_one= request.form['all_rank_one']
+        testresult.all_rank_two= request.form['all_rank_two']
+        testresult.all_rank_three= request.form['all_rank_three']
+        testresult.all_rank_four= request.form['all_rank_four']
+        testresult.all_rank_five= request.form['all_rank_five']
         return redirect(url_for('edit_testresult', testresult_id=testresult_id))
     return render_template("/testresult_templates/testresult_edit.html", testresult=testresult)
 
 
-#テキスト追加操作画面
+# テキスト追加操作画面
 @app.route("/home/text_add")
 def add_text():
     pdf_files = [file for file in os.listdir('files') if file.endswith('.pdf')]
     return render_template('text_templates/text_add.html', pdf_files=pdf_files)
 
-
-#ファイルのアップロードを行う
+# ファイルのアップロードを行う
 @app.route("/upload", methods=['POST'])
 def upload_text():
     if 'file' not in request.files:
         flash('No file part')
         return redirect(request.url)
-    
+
     file = request.files['file']
 
     if file.filename == '':
         flash('No selected file')
         return redirect(request.url)
-    
+
     if file and file.filename.endswith('.pdf'):
         file_name = 'uploaded_' + file.filename
         file_path = os.path.join('files', file_name)
         file.save(file_path)
-        
+
         # Read the file data as bytes
         with open(file_path, 'rb') as f:
             pdf_data = f.read()
@@ -491,28 +540,30 @@ def upload_text():
             pdf_data=pdf_data
         )
         text_data.save()
-        
+
         return redirect(url_for('add_text'))
     else:
         flash('File is not a PDF')
         return redirect(request.url)
 
+# ファイルの削除を行う
+@app.route('/delete/<int:text_id>', methods=['POST'])
+def delete_text(text_id):
+    try:
+        text_data = TextData.get(TextData.id == text_id)
+        # Delete the file from the filesystem
+        file_path = os.path.join('files', 'uploaded_' + text_data.text_name)
+        if os.path.exists(file_path):
+            os.remove(file_path)
+        # Delete from database
+        text_data.delete_instance()
+        flash('Text deleted successfully')
+    except TextData.DoesNotExist:
+        flash('Text not found')
 
-#ファイルのダウンロードを行う
-@app.route('/download/<string:file>')
-def download_text(file):
-    return send_from_directory('files', file, as_attachment=True)
+    return redirect(url_for('all_textdata'))
 
-
-#ファイルの削除を行う
-@app.route('/delete/<string:file>')
-def delete_text(file):
-    delete_file_path = os.path.join('files', file)
-    os.remove(delete_file_path)
-    return redirect(url_for('add_text'))
-
-
-#テキスト一覧
+# テキスト一覧
 @app.route("/home/text_all", methods=['GET'])
 def all_textdata():
     page = request.args.get(get_page_parameter(), type=int, default=1)
@@ -520,12 +571,15 @@ def all_textdata():
     total = TextData.select().count()
     texts = TextData.select().paginate(page, per_page)
 
+    no_texts_message = None
+    if total == 0:
+        no_texts_message = "No texts available"
+
     pagination = Pagination(page=page, total=total, per_page=per_page, css_framework='bootstrap5')
 
-    return render_template('/text_templates/text_all.html', texts=texts, pagination=pagination)
+    return render_template('/text_templates/text_all.html', texts=texts, pagination=pagination, no_texts_message=no_texts_message)
 
-
-#テキスト詳細
+# テキスト詳細
 @app.route("/home/text_all/text_detail_<int:text_id>", methods=['GET'])
 def detail_text(text_id):
     try:
@@ -534,28 +588,32 @@ def detail_text(text_id):
         return redirect(url_for('all_textdata'))
     return render_template('/text_templates/text_detail.html', textdata=textdata)
 
-
-#PDF表示
+# PDF表示
 @app.route("/home/text_all/text_detail_<int:text_id>/view_pdf", methods=['GET'])
 def view_pdf(text_id):
     try:
         textdata = TextData.get(TextData.id == text_id)
     except TextData.DoesNotExist:
         return redirect(url_for('all_textdata'))
-    
-    return send_file(BytesIO(textdata.pdf_data), download_name=f"{textdata.text_name}.pdf", as_attachment=True)
 
+    file_name = 'uploaded_' + textdata.text_name
+    file_path = os.path.join('files', file_name)
 
-#テキスト編集(表示)
+    if not os.path.exists(file_path):
+        flash('PDF file not found')
+        return redirect(url_for('detail_text', text_id=text_id))
+
+    return send_file(file_path, mimetype='application/pdf', as_attachment=False, download_name=file_name)
+
+# テキスト編集(表示)
 @app.route("/home/text_all/text_detail_<int:text_id>/text_edit", methods=['GET'])
 def edit_text(text_id):
     try:
         text = TextData.get(TextData.id == text_id)
     except TextData.DoesNotExist:
         return redirect(url_for('all_textdata'))
-    
-    return render_template('/text_templates/text_edit.html', text=text)
 
+    return render_template('/text_templates/text_edit.html', text=text)
 
 if __name__ == '__main__':
     app.run(debug=True)
