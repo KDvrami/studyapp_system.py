@@ -9,9 +9,9 @@ class BaseModel(Model):
     class Meta:
         database = db
 
-class User(UserMixin,BaseModel):
+class User(UserMixin, BaseModel):
     username = CharField(unique=True)
-    password = CharField()
+    password_hash = CharField()
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)

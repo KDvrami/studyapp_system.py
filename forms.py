@@ -13,6 +13,6 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField('Register')
 
     def validate_username(self, username):
-        user = User.query.filter_by(username=username.data).one_or_none()
-        if user is not None:
+        user = User.get_or_none(username=username.data)
+        if user:
             raise ValidationError('違うユーザー名を使用してください。')

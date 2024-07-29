@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,13 +21,6 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">パスワード</label>
-                {{ form.password(class_='form-control') }}
-                {% for error in form.password.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
-            </div>
-            <div class="mb-3">
-                <label class="form-label">パスワード(確認用)</label>
                 {{ form.password(class_='form-control') }}
                 {% for error in form.password.errors %}
                 <span style="color: red;">[{{ error }}]</span>

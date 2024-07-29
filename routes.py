@@ -3,7 +3,6 @@ from flask_login import login_required, login_user, logout_user, current_user
 from flask_paginate import Pagination, get_page_parameter
 from models import User, Students, TestResults, LearningReports, TextData
 from forms import LoginForm, RegistrationForm
-from werkzeug.security import generate_password_hash
 from werkzeug.urls import urllib 
 from peewee import *
 import os
@@ -11,46 +10,6 @@ import os
 main_bp = Blueprint('main', __name__)
 
 db = SqliteDatabase('studyapp_sora.db')
-
-
-# ログイン認証
-@main_bp.route("/sora_login", methods=['GET', 'POST'])
-def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('main.home'))
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).one_or_none()
-        if user is None or not user.check_password(form.password.data):
-            flash('ユーザー名かパスワードが違います。')
-            return redirect(url_for('main.login'))
-        login_user(user, remember=form.remember_me.data)
-        next_page = request.args.get('next')
-        if not next_page or urllib.parse.urlsplit (next_page).netloc != '':
-            next_page = url_for('main.home')
-        return redirect(next_page)
-    return render_template('others_templates/sora_login.html', form=form)
-
-#ユーザー情報登録画面
-@main_bp.route("/register", methods=['GET', 'POST'])
-def register():
-    if current_user.is_authenticated:
-        return redirect(url_for('main.home'))
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        user = User(username=form.username.data)
-        user.set_password(form.password.data)
-        db.session.add(user)
-        db.session.commit()
-        flash('ログイン情報を登録しました！')
-        return redirect(url_for('main.login'))
-    return render_template('others_templates/user_register.html', form=form)
-
-@main_bp.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for('main.login'))
 
 
 #home画面
