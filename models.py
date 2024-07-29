@@ -1,5 +1,7 @@
 from peewee import *
 from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
+from __init__ import login_manager
 
 db = SqliteDatabase('studyapp_sora.db')
 
@@ -7,9 +9,15 @@ class BaseModel(Model):
     class Meta:
         database = db
 
-class User(BaseModel, UserMixin):
+class User(UserMixin,BaseModel):
     username = CharField(unique=True)
     password = CharField()
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
 class Students(BaseModel):
     first_name = CharField(max_length=255)
@@ -66,3 +74,7 @@ class TextData(BaseModel):
 
 db.connect()
 db.create_tables([User, Students, TestResults, LearningReports, TextData])
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get(User.id == user_id)
