@@ -2,11 +2,15 @@ from flask import Flask
 from __init__ import login_manager
 from routes import main_bp
 from auth import auth_bp
+from dotenv import load_dotenv
+import os
 
 def sub_app():
+    load_dotenv()
+    
     app = Flask(__name__)
-    app.secret_key = '36c33b4e9b8892d52cca70841865626b0546eb0e8dc0967edb43662d0c39ddb6'
-    app.config['SECRET_KEY'] = '36c33b4e9b8892d52cca70841865626b0546eb0e8dc0967edb43662d0c39ddb6'
+    app.secret_key = os.getenv('SECRET_KEY')
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
     login_manager.init_app(app)
     login_manager.login_view = 'auth.login'

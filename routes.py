@@ -1,9 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, send_file
-from flask_login import login_required, login_user, logout_user, current_user
+from flask_login import login_required
 from flask_paginate import Pagination, get_page_parameter
-from models import User, Students, TestResults, LearningReports, TextData
-from forms import LoginForm, RegistrationForm
-from werkzeug.urls import urllib 
+from models import Students, TestResults, LearningReports, TextData
 from peewee import *
 import os
 
