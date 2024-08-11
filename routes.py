@@ -89,7 +89,6 @@ def delete_student(student_id):
     try:
         student = Students.get(Students.id == student_id)
         student.delete_instance()
-        db.commit()
         flash('Student deleted successfully.', 'success')
     except Students.DoesNotExist:
         flash('Student not found', 'error')
