@@ -6,6 +6,11 @@ from werkzeug.security import generate_password_hash
 
 auth_bp = Blueprint('auth', __name__)
 
+@auth_bp.route('/')
+def index():
+    return redirect("/sora_login")
+
+
 @auth_bp.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
