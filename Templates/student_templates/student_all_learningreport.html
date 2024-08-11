@@ -120,8 +120,8 @@
                         <tbody>
                             {% for result in learningreports %}
                                 <tr>
-                                    <td><a class="link-secondary text-decoration-none" href="{{ url_for('detail_learningreport', learningreport_id=result.id) }}">{{ result.id }}</a></td>
-                                    <td><a class="link-secondary text-decoration-none" href="{{ url_for('detail_learningreport', learningreport_id=result.id) }}">{{ result.learn_date }}</a></td>
+                                    <td><a class="link-secondary text-decoration-none" href="{{ url_for('main.detail_learningreport', learningreport_id=result.id) }}">{{ result.id }}</a></td>
+                                    <td><a class="link-secondary text-decoration-none" href="{{ url_for('main.detail_learningreport', learningreport_id=result.id) }}">{{ result.learn_date }}</a></td>
                                     <td>{{ result.course }}</td>
                                     <td>{{ result.subject }}</td>
                                 </tr>
@@ -133,19 +133,19 @@
                             <ul class="pagination">
                                 {% if pagination.has_prev %}
                                     <li class="page-item">
-                                        <a class="page-link" href="{{ url_for('student_all_learningreport', page=pagination.prev_num, student_id=student.id) }}" aria-label="Previous">
+                                        <a class="page-link" href="{{ url_for('main.student_all_learningreport', page=pagination.prev_num, student_id=student.id) }}" aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
                                     </li>
                                 {% endif %}
                                 {% for page in pagination.page_range %}
                                     <li class="page-item {% if page == pagination.page %}active{% endif %}">
-                                        <a class="page-link" href="{{ url_for('student_all_learningreport', page=page, student_id=student.id) }}">{{ page }}</a>
+                                        <a class="page-link" href="{{ url_for('main.student_all_learningreport', page=page, student_id=student.id) }}">{{ page }}</a>
                                     </li>
                                 {% endfor %}
                                 {% if pagination.has_next %}
                                     <li class="page-item">
-                                        <a class="page-link" href="{{ url_for('student_all_learningreport', page=pagination.next_num, student_id=student.id) }}" aria-label="Next">
+                                        <a class="page-link" href="{{ url_for('main.student_all_learningreport', page=pagination.next_num, student_id=student.id) }}" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>
                                     </li>

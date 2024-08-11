@@ -111,7 +111,7 @@
                     <div class="row justify-content-center">
                         <div class="col-md-6">
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
-                                <a href="{{ url_for('detail_testresult', testresult_id=testresult.id) }}" class="btn btn-primary">詳細画面へ</a>
+                                <a href="{{ url_for('main.detail_testresult', testresult_id=testresult.id) }}" class="btn btn-primary">詳細画面へ</a>
                             </div>
                             <form action="/home/testresult_all/testresult_detail_<int:testresult_id>/testresult_edit" method="post">
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
