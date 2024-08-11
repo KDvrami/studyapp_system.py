@@ -10,7 +10,7 @@
 <div class="container">
     <div class="center-block">
         <h1>Register</h1>
-        <form method="POST" action="{{ url_for('main.register') }}">
+        <form method="POST" action="{{ url_for('auth.register') }}">
             {{ form.hidden_tag() }}
             <div class="mb-3">
                 <label class="form-label">ユーザー名</label>
