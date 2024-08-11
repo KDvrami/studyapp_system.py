@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>生徒一覧</title>
-    <link rel="stylesheet" href="../../Static/all_student.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
@@ -108,7 +107,6 @@
             <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
                 <h1 class="h2 text-center">生徒一覧</h1>
                 <a class="btn btn-primary"  type="button" href="/home/student_add">新規追加</a>
-                <form>
                     <div class="container mt-4">
                         {% if no_students_message %}
                             <p>{{ no_students_message }}</p>
@@ -170,7 +168,6 @@
                             </ul>
                         </nav>
                     </div>
-                </form>
             </main>
         </div>
     </div>
