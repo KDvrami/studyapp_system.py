@@ -19,7 +19,7 @@ def register():
         User.create(username=form.username.data, password_hash=hashed_password)
         flash('あなたのアカウントが作成されました！ログインできるようになりました!', 'success')
         return redirect(url_for('auth.login'))
-    return render_template('others_templates/register.html', form=form)
+    return render_template('others_templates/user_register.html', form=form)
 
 @auth_bp.route('/sora_login', methods=['GET', 'POST'])
 def login():
