@@ -94,7 +94,7 @@ def delete_student(student_id):
     except Students.DoesNotExist:
         flash('Student not found', 'error')
         
-    return redirect(url_for('all_student'))
+    return redirect(url_for('main.all_student'))
 
 
 #生徒詳細画面

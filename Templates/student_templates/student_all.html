@@ -129,12 +129,12 @@
                             <tbody>
                                 {% for student in students %}
                                     <tr>
-                                        <td><a class="link-secondary text-decoration-none" href="{{ url_for('detail_student', student_id=student.id)}}">{{ student.id }}</a></td>
-                                        <td><a class="link-secondary text-decoration-none" href="{{ url_for('detail_student', student_id=student.id)}}">{{ student.first_name }} {{ student.last_name }}</a></td>
-                                        <td><a class="link-secondary text-decoration-none" href="{{ url_for('detail_student', student_id=student.id)}}">{{ student.school }}</a></td>
-                                        <td><a class="link-secondary text-decoration-none" href="{{ url_for('detail_student', student_id=student.id)}}">{{ student.grade }}</a></td>
+                                        <td><a class="link-secondary text-decoration-none" href="{{ url_for('main.detail_student', student_id=student.id)}}">{{ student.id }}</a></td>
+                                        <td><a class="link-secondary text-decoration-none" href="{{ url_for('main.detail_student', student_id=student.id)}}">{{ student.first_name }} {{ student.last_name }}</a></td>
+                                        <td><a class="link-secondary text-decoration-none" href="{{ url_for('main.detail_student', student_id=student.id)}}">{{ student.school }}</a></td>
+                                        <td><a class="link-secondary text-decoration-none" href="{{ url_for('main.detail_student', student_id=student.id)}}">{{ student.grade }}</a></td>
                                         <td>
-                                            <form action="{{ url_for('delete_student', student_id=student.id) }}" method="POST">
+                                            <form action="{{ url_for('main.delete_student', student_id=student.id) }}" method="POST">
                                                 <button type="submit" class="btn btn-danger btn-sm">削除</button>
                                             </form>
                                         </td>
@@ -145,7 +145,7 @@
                         <nav aria-label="Page navigation">
                             <ul class="pagination">
                                 {% if pagination.has_prev %}
-                                    <li class="page-item"><a class="page-link" href="{{ url_for('all_student', page=pagination.page - 1) }}">Previous</a></li>
+                                    <li class="page-item"><a class="page-link" href="{{ url_for('main.all_student', page=pagination.page - 1) }}">Previous</a></li>
                                 {% else %}
                                     <li class="page-item disabled"><span class="page-link">Previous</span></li>
                                 {% endif %}
@@ -155,7 +155,7 @@
                                         {% if page_num == pagination.page %}
                                             <li class="page-item active"><span class="page-link">{{ page_num }}</span></li>
                                         {% else %}
-                                            <li class="page-item"><a class="page-link" href="{{ url_for('all_student', page=page_num) }}">{{ page_num }}</a></li>
+                                            <li class="page-item"><a class="page-link" href="{{ url_for('main.all_student', page=page_num) }}">{{ page_num }}</a></li>
                                         {% endif %}
                                     {% else %}
                                         <li class="page-item disabled"><span class="page-link">...</span></li>
@@ -163,7 +163,7 @@
                                 {% endfor %}
                 
                                 {% if pagination.has_next %}
-                                    <li class="page-item"><a class="page-link" href="{{ url_for('all_student', page=pagination.page + 1) }}">Next</a></li>
+                                    <li class="page-item"><a class="page-link" href="{{ url_for('main.all_student', page=pagination.page + 1) }}">Next</a></li>
                                 {% else %}
                                     <li class="page-item disabled"><span class="page-link">Next</span></li>
                                 {% endif %}
