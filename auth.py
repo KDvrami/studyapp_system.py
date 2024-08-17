@@ -16,7 +16,8 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = generate_password_hash(form.password.data)
-        User.create(username=form.username.data, password_hash=hashed_password)
+        hashed_confirm_password = generate_password_hash(form.confirm_password.data)
+        User.create(username=form.username.data, password_hash=hashed_password, confirm_password_hash=hashed_confirm_password)
         flash('あなたのアカウントが作成されました！ログインできるようになりました!', 'success')
         return redirect(url_for('auth.login'))
     return render_template('others_templates/user_register.html', form=form)
@@ -26,7 +27,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.get_or_none(User.username == form.username.data)
-        if user and user.check_password(form.password.data):
+        if user and user.check_password(form.password.data, form.confirm_password.data):
             login_user(user)
             flash('ログイン出来ました！', 'success')
             return redirect(url_for('main.home'))

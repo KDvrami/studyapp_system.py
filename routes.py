@@ -10,6 +10,16 @@ main_bp = Blueprint('main', __name__)
 db = SqliteDatabase('studyapp_sora.db')
 
 
+@main_bp.before_request
+def before_request():
+    db.connect()
+
+@main_bp.teardown_request
+def teardown_request(exception):
+    if not db.is_closed():
+        db.close()
+
+
 #home画面
 @main_bp.route("/home", methods=['GET'])
 @login_required

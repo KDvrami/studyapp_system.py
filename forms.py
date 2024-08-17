@@ -6,10 +6,12 @@ from models import User
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired("この項目は入力が必須です")])
     password = PasswordField('Password', validators=[DataRequired("この項目は入力が必須です")])
+    confirm_password = PasswordField('confirm_password', validators=[DataRequired("この項目は入力必須です")])
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired("この項目は入力が必須です")])
     password = PasswordField('Password', validators=[DataRequired("この項目は入力が必須です")])
+    confirm_password = PasswordField('confirm_password', validators=[DataRequired("この項目は入力必須です")])
     submit = SubmitField('Register')
 
     def validate_username(self, username):
