@@ -27,7 +27,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.get_or_none(User.username == form.username.data)
-        if user and user.check_password(form.password.data, form.confirm_password.data):
+        if user and user.check_password(form.password.data):
             login_user(user)
             flash('ログイン出来ました！', 'success')
             return redirect(url_for('main.home'))

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}生徒情報詳細{% endblock %}
+
+{% block content %}
+<h1 class="h2 text-center">生徒情報詳細</h1>
+    <div class="d-flex justify-content-center">
+        <div class="col-md-6">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
+                <a href="{{ url_for('main.edit_student', student_id=student.id) }}" class="btn btn-primary">編集</a>
+            </div>
+            <div class="mb-3">
+                <div class="col-md-12">
+                    <label class="form-label">氏名</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" value="{{ student.first_name }}" readonly>
+                        <input type="text" class="form-control" value="{{ student.last_name }}" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">ふりがな</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" value="{{ student.hurigana_first_name }}" readonly>
+                    <input type="text" class="form-control" value="{{ student.hurigana_last_name }}" readonly>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">学校</label>
+                <input type="text" class="form-control" value="{{ student.school }}" readonly>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">学年</label>
+                <input type="text" class="form-control" value="{{ student.grade }}" readonly>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">備考欄</label>
+                <textarea class="form-control" readonly>{{ student.student_comments }}</textarea>
+            </div>
+            <div class="mb-3">
+                <a href="{{ url_for('main.student_all_testresult', student_id=student.id) }}" class="btn btn-primary">Test Results</a>
+            </div>
+            <div class="mb-3">
+                <a href="{{ url_for('main.student_all_learningreport', student_id=student.id) }}" class="btn btn-primary">Learning reports</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

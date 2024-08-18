@@ -1,0 +1,350 @@
+{% extends "base.html" %}
+
+{% block title %}テスト結果追加{% endblock %}
+
+{% block content %}
+<h1 class="h2 text-center">テスト結果追加</h1>
+    <div class="d-flex justify-content-center">
+        <div class="col-md-6">
+            <form action="/home/testresult_add" method="post">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
+                    <input class="btn btn-primary" type="submit">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">テスト実施日</label>
+                    <div class="col-md-3">
+                        <input type="text" aria-label="test date" class="form-control" placeholder="test date" name="test_date">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-text">テスト名</span>
+                            <select class="form-select" id="inputGroupSelect01" name="test_name">
+                                <option value="中間テスト">中間テスト</option>
+                                <option value="期末テスト">期末テスト</option>
+                                <option value="実力テスト">実力テスト</option>
+                                <option value="学期末考査">学期末考査</option>
+                                <option value="月例テスト">月例テスト</option>
+                                <option value="小テスト">小テスト</option>
+                                <option value="外部模試">外部模試</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="総合順位(生徒)" aria-label="User rank" name="user_total_rank">
+                        <span class="input-group-text">位/</span>
+                        <input type="text" class="form-control" placeholder="総合順位(全体)" aria-label="all lank" name="all_total_rank">
+                        <span class="input-group-text">位中</span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">学年</label>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <select class="form-select" id="inputGroupSelect01" name="grade">
+                                <option value="小学1年生">小学1年生</option>
+                                <option value="小学2年生">小学2年生</option>
+                                <option value="小学3年生">小学3年生</option>
+                                <option value="小学4年生">小学4年生</option>
+                                <option value="小学5年生">小学5年生</option>
+                                <option value="小学6年生">小学6年生</option>
+                                <option value="中学1年生">中学1年生</option>
+                                <option value="中学2年生">中学2年生</option>
+                                <option value="中学3年生">中学3年生</option>
+                                <option value="高校1年生">高校1年生</option>
+                                <option value="高校2年生">高校2年生</option>
+                                <option value="高校3年生">高校3年生</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">氏名</label>
+                        <div class="input-group">
+                            <input type="text" aria-label="First name" class="form-control" placeholder="First name" name="first_name">
+                            <input type="text" aria-label="Last name" class="form-control" placeholder="Last name" name="last_name">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="mb-3">
+                    <label class="form-label">科目1</label>
+                    <div class="col-md-3">
+                        <select class="form-select" id="inputGroupSelect01" name="subject_one">
+                            <option value="国語">国語</option>
+                            <option value="算数">算数</option>
+                            <option value="理科">理科</option>
+                            <option value="社会">社会</option>
+                            <option value="英語">英語</option>
+                            <option value="数Ⅰ・A">数Ⅰ・A</option>
+                            <option value="数Ⅱ・B">数Ⅱ・B</option>
+                            <option value="数Ⅰ">数Ⅰ</option>
+                            <option value="数Ⅱ">数Ⅱ</option>
+                            <option value="数Ⅲ">数Ⅲ</option>
+                            <option value="数A">数A</option>
+                            <option value="数B">数B</option>
+                            <option value="化学基礎">化学基礎</option>
+                            <option value="化学">化学</option>
+                            <option value="生物基礎">生物基礎</option>
+                            <option value="生物">生物</option>
+                            <option value="物理基礎">物理基礎</option>
+                            <option value="物理">物理</option>
+                            <option value="地学基礎">地学基礎</option>
+                            <option value="地学">地学</option>
+                            <option value="世界史">世界史</option>
+                            <option value="日本史">日本史</option>
+                            <option value="地理">地理</option>
+                            <option value="現代社会">現代社会</option>
+                            <option value="倫理">倫理</option>
+                            <option value="政治・経済">政治・経済</option>
+                            <option value="情報">情報</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">スコア1</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="スコア1" aria-label="Test score" aria-describedby="basic-addon1" name="score_one">
+                                <span class="input-group-text">点</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="User rank" aria-label="User rank" name="user_rank_one">
+                        <span class="input-group-text">位/</span>
+                        <input type="text" class="form-control" placeholder="all rank" aria-label="all lank" name="all_rank_one">
+                        <span class="input-group-text">位中</span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">科目2</label>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <select class="form-select" id="inputGroupSelect01" name="subject_two">
+                                <option value="国語">国語</option>
+                                <option value="算数">算数</option>
+                                <option value="理科">理科</option>
+                                <option value="社会">社会</option>
+                                <option value="英語">英語</option>
+                                <option value="数Ⅰ・A">数Ⅰ・A</option>
+                                <option value="数Ⅱ・B">数Ⅱ・B</option>
+                                <option value="数Ⅰ">数Ⅰ</option>
+                                <option value="数Ⅱ">数Ⅱ</option>
+                                <option value="数Ⅲ">数Ⅲ</option>
+                                <option value="数A">数A</option>
+                                <option value="数B">数B</option>
+                                <option value="化学基礎">化学基礎</option>
+                                <option value="化学">化学</option>
+                                <option value="生物基礎">生物基礎</option>
+                                <option value="生物">生物</option>
+                                <option value="物理基礎">物理基礎</option>
+                                <option value="物理">物理</option>
+                                <option value="地学基礎">地学基礎</option>
+                                <option value="地学">地学</option>
+                                <option value="世界史">世界史</option>
+                                <option value="日本史">日本史</option>
+                                <option value="地理">地理</option>
+                                <option value="現代社会">現代社会</option>
+                                <option value="倫理">倫理</option>
+                                <option value="政治・経済">政治・経済</option>
+                                <option value="情報">情報</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <label class="form-label">スコア2</label>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="スコア2" aria-label="Test score" aria-describedby="basic-addon1" name="score_two">
+                                <span class="input-group-text">点</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="User rank" aria-label="User rank" name="user_rank_two">
+                        <span class="input-group-text">位/</span>
+                        <input type="text" class="form-control" placeholder="all rank" aria-label="all lank" name="all_rank_two">
+                        <span class="input-group-text">位中</span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">科目3</label>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <select class="form-select" id="inputGroupSelect01" name="subject_three">
+                                <option value="国語">国語</option>
+                                <option value="算数">算数</option>
+                                <option value="理科">理科</option>
+                                <option value="社会">社会</option>
+                                <option value="英語">英語</option>
+                                <option value="数Ⅰ・A">数Ⅰ・A</option>
+                                <option value="数Ⅱ・B">数Ⅱ・B</option>
+                                <option value="数Ⅰ">数Ⅰ</option>
+                                <option value="数Ⅱ">数Ⅱ</option>
+                                <option value="数Ⅲ">数Ⅲ</option>
+                                <option value="数A">数A</option>
+                                <option value="数B">数B</option>
+                                <option value="化学基礎">化学基礎</option>
+                                <option value="化学">化学</option>
+                                <option value="生物基礎">生物基礎</option>
+                                <option value="生物">生物</option>
+                                <option value="物理基礎">物理基礎</option>
+                                <option value="物理">物理</option>
+                                <option value="地学基礎">地学基礎</option>
+                                <option value="地学">地学</option>
+                                <option value="世界史">世界史</option>
+                                <option value="日本史">日本史</option>
+                                <option value="地理">地理</option>
+                                <option value="現代社会">現代社会</option>
+                                <option value="倫理">倫理</option>
+                                <option value="政治・経済">政治・経済</option>
+                                <option value="情報">情報</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">スコア3</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="スコア3" aria-label="Test score" aria-describedby="basic-addon1" name="score_three">
+                                <span class="input-group-text">点</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="User rank" aria-label="User rank" name="user_rank_three">
+                        <span class="input-group-text">位/</span>
+                        <input type="text" class="form-control" placeholder="all rank" aria-label="all lank" name="all_rank_three">
+                        <span class="input-group-text">位</span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">科目4</label>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <select class="form-select" id="inputGroupSelect01" name="subject_four">
+                                <option value="国語">国語</option>
+                                <option value="算数">算数</option>
+                                <option value="理科">理科</option>
+                                <option value="社会">社会</option>
+                                <option value="英語">英語</option>
+                                <option value="数Ⅰ・A">数Ⅰ・A</option>
+                                <option value="数Ⅱ・B">数Ⅱ・B</option>
+                                <option value="数Ⅰ">数Ⅰ</option>
+                                <option value="数Ⅱ">数Ⅱ</option>
+                                <option value="数Ⅲ">数Ⅲ</option>
+                                <option value="数A">数A</option>
+                                <option value="数B">数B</option>
+                                <option value="化学基礎">化学基礎</option>
+                                <option value="化学">化学</option>
+                                <option value="生物基礎">生物基礎</option>
+                                <option value="生物">生物</option>
+                                <option value="物理基礎">物理基礎</option>
+                                <option value="物理">物理</option>
+                                <option value="地学基礎">地学基礎</option>
+                                <option value="地学">地学</option>
+                                <option value="世界史">世界史</option>
+                                <option value="日本史">日本史</option>
+                                <option value="地理">地理</option>
+                                <option value="現代社会">現代社会</option>
+                                <option value="倫理">倫理</option>
+                                <option value="政治・経済">政治・経済</option>
+                                <option value="情報">情報</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">スコア4</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="スコア4" aria-label="Test score" aria-describedby="basic-addon1" name="score_four">
+                                <span class="input-group-text">点</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="User rank" aria-label="User rank" name="user_rank_four">
+                        <span class="input-group-text">位/</span>
+                        <input type="text" class="form-control" placeholder="all rank" aria-label="all lank" name="all_rank_four">
+                        <span class="input-group-text">位中</span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">科目5</label>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <select class="form-select" id="inputGroupSelect01" name="subject_five">
+                                <option value="国語">国語</option>
+                                <option value="算数">算数</option>
+                                <option value="理科">理科</option>
+                                <option value="社会">社会</option>
+                                <option value="英語">英語</option>
+                                <option value="数Ⅰ・A">数Ⅰ・A</option>
+                                <option value="数Ⅱ・B">数Ⅱ・B</option>
+                                <option value="数Ⅰ">数Ⅰ</option>
+                                <option value="数Ⅱ">数Ⅱ</option>
+                                <option value="数Ⅲ">数Ⅲ</option>
+                                <option value="数A">数A</option>
+                                <option value="数B">数B</option>
+                                <option value="化学基礎">化学基礎</option>
+                                <option value="化学">化学</option>
+                                <option value="生物基礎">生物基礎</option>
+                                <option value="生物">生物</option>
+                                <option value="物理基礎">物理基礎</option>
+                                <option value="物理">物理</option>
+                                <option value="地学基礎">地学基礎</option>
+                                <option value="地学">地学</option>
+                                <option value="世界史">世界史</option>
+                                <option value="日本史">日本史</option>
+                                <option value="地理">地理</option>
+                                <option value="現代社会">現代社会</option>
+                                <option value="倫理">倫理</option>
+                                <option value="政治・経済">政治・経済</option>
+                                <option value="情報">情報</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">スコア5</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="スコア5" aria-label="Test score" aria-describedby="basic-addon1" name="score_five">
+                                <span class="input-group-text">点</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="User rank" aria-label="User rank" name="user_rank_five">
+                        <span class="input-group-text">位/</span>
+                        <input type="text" class="form-control" placeholder="all rank" aria-label="all lank" name="all_rank_five">
+                        <span class="input-group-text">位中</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

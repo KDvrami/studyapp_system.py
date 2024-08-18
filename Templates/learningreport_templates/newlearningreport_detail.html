@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}学習記録詳細{% endblock %}
+
+{% block content %}
+<h1 class="h2 text-center">学習記録詳細</h1>
+<div class="d-flex justify-content-center">
+    <div class="col-md-6">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
+            <a href="{{ url_for('main.edit_learningreport', learningreport_id=learningreport.id) }}" class="btn btn-primary">編集</a>
+        </div>
+        <div class="mb-3">
+            <div class="col-md-3">
+                <label class="form-label">学習実施日</label>
+                <input type="text" class="form-control" value="{{ learningreport.learn_date }}" readonly>
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="col-md-3">
+                <label class="form-label">学年</label>
+                <input type="text" class="form-control" value="{{ learningreport.grade }}" readonly>
+            </div>
+        </div>
+        <label class="form-label">氏名</label>
+        <div class="col-md-6">
+            <div class="input-group">
+                <input type="text" class="form-control" value="{{ learningreport.first_name }}" readonly>
+                <input type="text" class="form-control" value="{{ learningreport.last_name }}" readonly>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">コース</label>
+            <div class="col-md-6">
+                <input type="text" class="form-control" value="{{ learningreport.course }}" readonly>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">科目</label>
+            <div class="col-md-3">
+                <input type="text" class="form-control" value="{{ learningreport.subject }}" readonly>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">使用した学習教材</label>
+            <div class="col-md-3">
+                <input type="text" class="form-control" value="{{ learningreport.used_text }}" readonly>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">備考欄</label>
+            <textarea class="form-control" readonly>{{ learningreport.learningreport_comments }}</textarea>
+        </div>
+    </div>
+</div>
+{% endblock %}
