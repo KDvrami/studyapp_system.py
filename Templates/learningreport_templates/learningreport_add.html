@@ -1,237 +1,128 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="sidebar_style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg bg-body-secondary" data-bs-theme="dark">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="ナビゲーションの切替">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-md-center" id="navbar">
-                <h2>Studyapp_Sora</h2>
+{% extends "base.html" %}
+
+{% block title %}学習記録追加{% endblock %}
+
+{% block content %}
+<h1 class="h2 text-center">学習記録追加</h1>
+<div class="d-flex justify-content-center">
+    <div class="col-md-6">
+        <form action="/home/learningreport_add" method="post" enctype="multipart/form-data">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <input class="btn btn-primary" type="submit"></input>
             </div>
-        </div>
-    </nav>
-    <div class="container-fluid">
-        <div class="row">
-            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-                <div class="position-sticky pt-md-5">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/home">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
-                                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
-                                    <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
-                                </svg> 
-                                <span class="ml-2">home</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/home/student_all">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
-                                    <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
-                                </svg>
-                                <span class="ml-2">生徒一覧</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/home/student_add">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16">
-                                    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-                                    <path d="M2 13c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Z"/>
-                                </svg>
-                                <span class="ml-2">生徒追加</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/home/testresult_all">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-stack" viewBox="0 0 16 16">
-                                    <path d="m14.12 10.163 1.715.858c.22.11.22.424 0 .534L8.267 15.34a.598.598 0 0 1-.534 0L.165 11.555a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0l5.317-2.66zM7.733.063a.598.598 0 0 1 .534 0l7.568 3.784a.3.3 0 0 1 0 .535L8.267 8.165a.598.598 0 0 1-.534 0L.165 4.382a.299.299 0 0 1 0-.535L7.733.063z"/>
-                                    <path d="m14.12 6.576 1.715.858c.22.11.22.424 0 .534l-7.568 3.784a.598.598 0 0 1-.534 0L.165 7.968a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0l5.317-2.659z"/>
-                                </svg>
-                                <span class="ml-2">テスト結果一覧</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/home/testresult_add">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-stack-overflow" viewBox="0 0 16 16">
-                                    <path d="M12.412 14.572V10.29h1.428V16H1v-5.71h1.428v4.282h9.984z"/>
-                                    <path d="M3.857 13.145h7.137v-1.428H3.857v1.428zM10.254 0 9.108.852l4.26 5.727 1.146-.852L10.254 0zm-3.54 3.377 5.484 4.567.913-1.097L7.627 2.28l-.914 1.097zM4.922 6.55l6.47 3.013.603-1.294-6.47-3.013-.603 1.294zm-.925 3.344 6.985 1.469.294-1.398-6.985-1.468-.294 1.397z"/>
-                                </svg>
-                                <span class="ml-2">テスト結果追加</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/home/learningreport_all">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-journals" viewBox="0 0 16 16">
-                                    <path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2 2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v9a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2z"/>
-                                    <path d="M1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 2.5v.5H.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1H2v-.5a.5.5 0 0 0-1 0z"/>
-                                </svg>                                
-                                <span class="ml-2">学習記録一覧</span>
-                            </a>
-                        </li><li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/home/learningreport_add">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-journal-plus" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5z"/>
-                                    <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
-                                    <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
-                                </svg>
-                                <span class="ml-2">学習記録追加</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/home/text_all">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-file-earmark-ruled-fill" viewBox="0 0 16 16">
-                                    <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM3 9h10v1H6v2h7v1H6v2H5v-2H3v-1h2v-2H3V9z"/>
-                                </svg>                                
-                                <span class="ml-2">テキスト一覧</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/home/text_add">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-file-earmark-plus-fill" viewBox="0 0 16 16">
-                                    <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM8.5 7v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 1 0z"/>
-                                </svg>                                
-                                <span class="ml-2">テキスト追加</span>
-                            </a>
-                        </li>
-                    </ul>
-                  </div>
-            </nav>
-            <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
-                <h1 class="h2 text-center">学習記録追加</h1>
-                <div class="d-flex justify-content-center">
-                    <div class="col-md-6">
-                        <form action="/home/learningreport_add" method="post" enctype="multipart/form-data">
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <input class="btn btn-primary" type="submit"></input>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">学習日</label>
-                                <div class="col-md-3">
-                                    <input type="text" aria-label="learn date" class="form-control" placeholder="learn date" name="learn_date">
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">学年</label>
-                                <div class="col-md-3">
-                                    <div class="input-group">
-                                        <select class="form-select" id="inputGroupSelect01" name="grade">
-                                            <option value="小学1年生">小学1年生</option>
-                                            <option value="小学2年生">小学2年生</option>
-                                            <option value="小学3年生">小学3年生</option>
-                                            <option value="小学4年生">小学4年生</option>
-                                            <option value="小学5年生">小学5年生</option>
-                                            <option value="小学6年生">小学6年生</option>
-                                            <option value="中学1年生">中学1年生</option>
-                                            <option value="中学2年生">中学2年生</option>
-                                            <option value="中学3年生">中学3年生</option>
-                                            <option value="高校1年生">高校1年生</option>
-                                            <option value="高校2年生">高校2年生</option>
-                                            <option value="高校3年生">高校3年生</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">氏名</label>
-                                <div class="col-md-6">
-                                    <div class="input-group">
-                                        <input type="text" aria-label="First name" class="form-control" placeholder="First name" name="first_name">
-                                        <input type="text" aria-label="Last name" class="form-control" placeholder="Last name" name="last_name">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <div class="col-md-6">
-                                    <div class="input-group">
-                                        <span class="input-group-text">コース</span>
-                                        <select class="form-select" id="inputGroupSelect01" name="course">
-                                            <option value="Aコース 10:00~11:30">Aコース 10:00~11:30</option>
-                                            <option value="Bコース 11:45~13:15">Bコース 11:45~13:15</option>
-                                            <option value="Cコース 13:30~15:00">Cコース 13:30~15:00</option>
-                                            <option value="Dコース 15:15~16:45">Dコース 15:15~16:45</option>
-                                            <option value="Eコース 17:00~18:30">Eコース 17:00~18:30</option>
-                                            <option value="Fコース 18:45~20:15">Fコース 18:45~20:15</option>
-                                            <option value="夏期講習">夏期講習</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">科目</label>
-                                <div class="col-md-3">
-                                    <select class="form-select" id="inputGroupSelect01" name="subject">
-                                        <option value="国語">国語</option>
-                                        <option value="算数">算数</option>
-                                        <option value="理科">理科</option>
-                                        <option value="社会">社会</option>
-                                        <option value="英語">英語</option>
-                                        <option value="数Ⅰ・A">数Ⅰ・A</option>
-                                        <option value="数Ⅱ・B">数Ⅱ・B</option>
-                                        <option value="数Ⅰ">数Ⅰ</option>
-                                        <option value="数Ⅱ">数Ⅱ</option>
-                                        <option value="数Ⅲ">数Ⅲ</option>
-                                        <option value="数A">数A</option>
-                                        <option value="数B">数B</option>
-                                        <option value="化学基礎">化学基礎</option>
-                                        <option value="化学">化学</option>
-                                        <option value="生物基礎">生物基礎</option>
-                                        <option value="生物">生物</option>
-                                        <option value="物理基礎">物理基礎</option>
-                                        <option value="物理">物理</option>
-                                        <option value="地学基礎">地学基礎</option>
-                                        <option value="地学">地学</option>
-                                        <option value="世界史">世界史</option>
-                                        <option value="日本史">日本史</option>
-                                        <option value="地理">地理</option>
-                                        <option value="現代社会">現代社会</option>
-                                        <option value="倫理">倫理</option>
-                                        <option value="政治・経済">政治・経済</option>
-                                        <option value="情報">情報</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">使用した学習教材</label>
-                                <div class="col-md-3">
-                                    <select class="form-select" id="inputGroupSelect01" name="used_text">
-                                        <option value="小学生教材">小学生教材</option>
-                                        <option value="iワーク 中1">iワーク 中1</option>
-                                        <option value="iワーク 中2">iワーク 中2</option>
-                                        <option value="iワーク 中3">iワーク 中3</option>
-                                        <option value="iワーク 高1">iワーク 高1</option>
-                                        <option value="iワーク 高2">iワーク 高2</option>
-                                        <option value="iワーク 高3">iワーク 高3</option>
-                                        <option value="PERSONAL 中1">PERSONAL 中1</option>
-                                        <option value="PERSONAL 中2">PERSONAL 中2</option>
-                                        <option value="PERSONAL 中3">PERSONAL 中3</option>
-                                        <option value="PERSONAL 高1">PERSONAL 高1</option>
-                                        <option value="PERSONAL 高2">PERSONAL 高2</option>
-                                        <option value="PERSONAL 高3">PERSONAL 高3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <span class="input-group-text">備考欄</span>
-                                    <textarea class="form-control" aria-label="With textarea" name="learningreport_comments"></textarea>
-                                </div>
-                            </div>
-                        </form>
+            <div class="mb-3">
+                <label class="form-label">学習日</label>
+                <div class="col-md-3">
+                    <input type="text" aria-label="learn date" class="form-control" placeholder="learn date" name="learn_date">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">学年</label>
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <select class="form-select" id="inputGroupSelect01" name="grade">
+                            <option value="小学1年生">小学1年生</option>
+                            <option value="小学2年生">小学2年生</option>
+                            <option value="小学3年生">小学3年生</option>
+                            <option value="小学4年生">小学4年生</option>
+                            <option value="小学5年生">小学5年生</option>
+                            <option value="小学6年生">小学6年生</option>
+                            <option value="中学1年生">中学1年生</option>
+                            <option value="中学2年生">中学2年生</option>
+                            <option value="中学3年生">中学3年生</option>
+                            <option value="高校1年生">高校1年生</option>
+                            <option value="高校2年生">高校2年生</option>
+                            <option value="高校3年生">高校3年生</option>
+                        </select>
                     </div>
                 </div>
-            </main>
-        </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">氏名</label>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input type="text" aria-label="First name" class="form-control" placeholder="First name" name="first_name">
+                        <input type="text" aria-label="Last name" class="form-control" placeholder="Last name" name="last_name">
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <span class="input-group-text">コース</span>
+                        <select class="form-select" id="inputGroupSelect01" name="course">
+                            <option value="Aコース 10:00~11:30">Aコース 10:00~11:30</option>
+                            <option value="Bコース 11:45~13:15">Bコース 11:45~13:15</option>
+                            <option value="Cコース 13:30~15:00">Cコース 13:30~15:00</option>
+                            <option value="Dコース 15:15~16:45">Dコース 15:15~16:45</option>
+                            <option value="Eコース 17:00~18:30">Eコース 17:00~18:30</option>
+                            <option value="Fコース 18:45~20:15">Fコース 18:45~20:15</option>
+                            <option value="夏期講習">夏期講習</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">科目</label>
+                <div class="col-md-3">
+                    <select class="form-select" id="inputGroupSelect01" name="subject">
+                        <option value="国語">国語</option>
+                        <option value="算数">算数</option>
+                        <option value="理科">理科</option>
+                        <option value="社会">社会</option>
+                        <option value="英語">英語</option>
+                        <option value="数Ⅰ・A">数Ⅰ・A</option>
+                        <option value="数Ⅱ・B">数Ⅱ・B</option>
+                        <option value="数Ⅰ">数Ⅰ</option>
+                        <option value="数Ⅱ">数Ⅱ</option>
+                        <option value="数Ⅲ">数Ⅲ</option>
+                        <option value="数A">数A</option>
+                        <option value="数B">数B</option>
+                        <option value="化学基礎">化学基礎</option>
+                        <option value="化学">化学</option>
+                        <option value="生物基礎">生物基礎</option>
+                        <option value="生物">生物</option>
+                        <option value="物理基礎">物理基礎</option>
+                        <option value="物理">物理</option>
+                        <option value="地学基礎">地学基礎</option>
+                        <option value="地学">地学</option>
+                        <option value="世界史">世界史</option>
+                        <option value="日本史">日本史</option>
+                        <option value="地理">地理</option>
+                        <option value="現代社会">現代社会</option>
+                        <option value="倫理">倫理</option>
+                        <option value="政治・経済">政治・経済</option>
+                        <option value="情報">情報</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">使用した学習教材</label>
+                <div class="col-md-3">
+                    <select class="form-select" id="inputGroupSelect01" name="used_text">
+                        <option value="小学生教材">小学生教材</option>
+                        <option value="iワーク 中1">iワーク 中1</option>
+                        <option value="iワーク 中2">iワーク 中2</option>
+                        <option value="iワーク 中3">iワーク 中3</option>
+                        <option value="iワーク 高1">iワーク 高1</option>
+                        <option value="iワーク 高2">iワーク 高2</option>
+                        <option value="iワーク 高3">iワーク 高3</option>
+                        <option value="PERSONAL 中1">PERSONAL 中1</option>
+                        <option value="PERSONAL 中2">PERSONAL 中2</option>
+                        <option value="PERSONAL 中3">PERSONAL 中3</option>
+                        <option value="PERSONAL 高1">PERSONAL 高1</option>
+                        <option value="PERSONAL 高2">PERSONAL 高2</option>
+                        <option value="PERSONAL 高3">PERSONAL 高3</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="input-group">
+                    <span class="input-group-text">備考欄</span>
+                    <textarea class="form-control" aria-label="With textarea" name="learningreport_comments"></textarea>
+                </div>
+            </div>
+        </form>
     </div>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
-</body>
-</html>
+</div>
+{% endblock %}
