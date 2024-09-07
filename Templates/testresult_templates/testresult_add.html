@@ -3,23 +3,21 @@
 {% block title %}テスト結果追加{% endblock %}
 
 {% block content %}
-<h1 class="h2 text-center">テスト結果追加</h1>
-    <div class="d-flex justify-content-center">
-        <div class="col-md-6">
+<div class="container mt-4">
+    <div class="row justify-content-start">
+        <div class="col-12 col-md-8 col-lg-6">
+            <h1 class="h2 text-start text-center pb-3">テスト結果追加</h1>
             <form action="/home/testresult_add" method="post">
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
-                    <input class="btn btn-primary" type="submit">
-                </div>
                 <div class="mb-3">
                     <label class="form-label">テスト実施日</label>
-                    <div class="col-md-3">
-                        <input type="text" aria-label="test date" class="form-control" placeholder="test date" name="test_date">
+                    <div class="col-lg-6">
+                        <input type="date" aria-label="test date" class="form-control" placeholder="テスト実施日" name="test_date">
                     </div>
                 </div>
                 <div class="mb-3">
                     <div class="col-md-6">
+                        <label class="form-label">テスト実施日</label>
                         <div class="input-group">
-                            <span class="input-group-text">テスト名</span>
                             <select class="form-select" id="inputGroupSelect01" name="test_name">
                                 <option value="中間テスト">中間テスト</option>
                                 <option value="期末テスト">期末テスト</option>
@@ -32,7 +30,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-7">
+                <div class="col-lg-7 pt-3">
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="総合順位(生徒)" aria-label="User rank" name="user_total_rank">
                         <span class="input-group-text">位/</span>
@@ -42,7 +40,7 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label">学年</label>
-                    <div class="col-md-3">
+                    <div class="col-lg-6">
                         <div class="input-group">
                             <select class="form-select" id="inputGroupSelect01" name="grade">
                                 <option value="小学1年生">小学1年生</option>
@@ -62,18 +60,18 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <div class="col-md-6">
+                    <div class="col-lg-6">
                         <label class="form-label">氏名</label>
                         <div class="input-group">
-                            <input type="text" aria-label="First name" class="form-control" placeholder="First name" name="first_name">
-                            <input type="text" aria-label="Last name" class="form-control" placeholder="Last name" name="last_name">
+                            <input type="text" aria-label="First name" class="form-control" placeholder="姓" name="first_name">
+                            <input type="text" aria-label="Last name" class="form-control" placeholder="名" name="last_name">
                         </div>
                     </div>
                 </div>
                 <br>
                 <div class="mb-3">
                     <label class="form-label">科目1</label>
-                    <div class="col-md-3">
+                    <div class="col-lg-6">
                         <select class="form-select" id="inputGroupSelect01" name="subject_one">
                             <option value="国語">国語</option>
                             <option value="算数">算数</option>
@@ -107,26 +105,26 @@
                 </div>
                 <div class="mb-3">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-lg-6">
                             <label class="form-label">スコア1</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="スコア1" aria-label="Test score" aria-describedby="basic-addon1" name="score_one">
+                                <input type="text" class="form-control" placeholder="科目1の点数" aria-label="Test score" aria-describedby="basic-addon1" name="score_one">
                                 <span class="input-group-text">点</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-lg-6 pt-3">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="User rank" aria-label="User rank" name="user_rank_one">
+                        <input type="text" class="form-control" placeholder="生徒順位" aria-label="User rank" name="user_rank_one">
                         <span class="input-group-text">位/</span>
-                        <input type="text" class="form-control" placeholder="all rank" aria-label="all lank" name="all_rank_one">
+                        <input type="text" class="form-control" placeholder="全体" aria-label="all lank" name="all_rank_one">
                         <span class="input-group-text">位中</span>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">科目2</label>
-                    <div class="col-md-3">
+                    <div class="col-lg-6">
                         <div class="input-group">
                             <select class="form-select" id="inputGroupSelect01" name="subject_two">
                                 <option value="国語">国語</option>
@@ -163,25 +161,25 @@
                 <div class="mb-3">
                     <div class="row">
                         <label class="form-label">スコア2</label>
-                        <div class="col-md-6">
+                        <div class="col-lg-6">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="スコア2" aria-label="Test score" aria-describedby="basic-addon1" name="score_two">
+                                <input type="text" class="form-control" placeholder="科目2の点数" aria-label="Test score" aria-describedby="basic-addon1" name="score_two">
                                 <span class="input-group-text">点</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-lg-6">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="User rank" aria-label="User rank" name="user_rank_two">
+                        <input type="text" class="form-control" placeholder="生徒順位" aria-label="User rank" name="user_rank_two">
                         <span class="input-group-text">位/</span>
-                        <input type="text" class="form-control" placeholder="all rank" aria-label="all lank" name="all_rank_two">
+                        <input type="text" class="form-control" placeholder="全体" aria-label="all lank" name="all_rank_two">
                         <span class="input-group-text">位中</span>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">科目3</label>
-                    <div class="col-md-3">
+                    <div class="col-lg-6">
                         <div class="input-group">
                             <select class="form-select" id="inputGroupSelect01" name="subject_three">
                                 <option value="国語">国語</option>
@@ -217,26 +215,26 @@
                 </div>
                 <div class="mb-3">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-lg-6">
                             <label class="form-label">スコア3</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="スコア3" aria-label="Test score" aria-describedby="basic-addon1" name="score_three">
+                                <input type="text" class="form-control" placeholder="科目3の点数" aria-label="Test score" aria-describedby="basic-addon1" name="score_three">
                                 <span class="input-group-text">点</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-lg-6">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="User rank" aria-label="User rank" name="user_rank_three">
+                        <input type="text" class="form-control" placeholder="生徒順位" aria-label="User rank" name="user_rank_three">
                         <span class="input-group-text">位/</span>
-                        <input type="text" class="form-control" placeholder="all rank" aria-label="all lank" name="all_rank_three">
+                        <input type="text" class="form-control" placeholder="全体" aria-label="all lank" name="all_rank_three">
                         <span class="input-group-text">位</span>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">科目4</label>
-                    <div class="col-md-3">
+                    <div class="col-lg-6">
                         <div class="input-group">
                             <select class="form-select" id="inputGroupSelect01" name="subject_four">
                                 <option value="国語">国語</option>
@@ -272,26 +270,26 @@
                 </div>
                 <div class="mb-3">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-lg-6">
                             <label class="form-label">スコア4</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="スコア4" aria-label="Test score" aria-describedby="basic-addon1" name="score_four">
+                                <input type="text" class="form-control" placeholder="科目4の点数" aria-label="Test score" aria-describedby="basic-addon1" name="score_four">
                                 <span class="input-group-text">点</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-lg-6">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="User rank" aria-label="User rank" name="user_rank_four">
+                        <input type="text" class="form-control" placeholder="生徒順位" aria-label="User rank" name="user_rank_four">
                         <span class="input-group-text">位/</span>
-                        <input type="text" class="form-control" placeholder="all rank" aria-label="all lank" name="all_rank_four">
+                        <input type="text" class="form-control" placeholder="全体" aria-label="all lank" name="all_rank_four">
                         <span class="input-group-text">位中</span>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">科目5</label>
-                    <div class="col-md-3">
+                    <div class="col-lg-6">
                         <div class="input-group">
                             <select class="form-select" id="inputGroupSelect01" name="subject_five">
                                 <option value="国語">国語</option>
@@ -327,22 +325,25 @@
                 </div>
                 <div class="mb-3">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-lg-6">
                             <label class="form-label">スコア5</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="スコア5" aria-label="Test score" aria-describedby="basic-addon1" name="score_five">
+                                <input type="text" class="form-control" placeholder="科目5の点数" aria-label="Test score" aria-describedby="basic-addon1" name="score_five">
                                 <span class="input-group-text">点</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-lg-6">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="User rank" aria-label="User rank" name="user_rank_five">
+                        <input type="text" class="form-control" placeholder="生徒順位" aria-label="User rank" name="user_rank_five">
                         <span class="input-group-text">位/</span>
-                        <input type="text" class="form-control" placeholder="all rank" aria-label="all lank" name="all_rank_five">
+                        <input type="text" class="form-control" placeholder="全体" aria-label="all lank" name="all_rank_five">
                         <span class="input-group-text">位中</span>
                     </div>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
+                    <button class="btn btn-primary" type="submit">登録する</button>
                 </div>
             </form>
         </div>

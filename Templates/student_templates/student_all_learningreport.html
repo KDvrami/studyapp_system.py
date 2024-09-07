@@ -3,54 +3,67 @@
 {% block title %}生徒別学習記録一覧{% endblock %}
 
 {% block content %}
-<h1 class="h2">{{ student.first_name }} {{ student.last_name }}'s Learning Reports</h1>
-    {% if learningreports %}
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>id</th>
-                    <th>Date</th>
-                    <th>course</th>
-                    <th>subject</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for result in learningreports %}
-                    <tr>
-                        <td><a class="link-secondary text-decoration-none" href="{{ url_for('main.detail_learningreport', learningreport_id=result.id) }}">{{ result.id }}</a></td>
-                        <td><a class="link-secondary text-decoration-none" href="{{ url_for('main.detail_learningreport', learningreport_id=result.id) }}">{{ result.learn_date }}</a></td>
-                        <td>{{ result.course }}</td>
-                        <td>{{ result.subject }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% if pagination %}
-            <nav>
-                <ul class="pagination">
-                    {% if pagination.has_prev %}
-                        <li class="page-item">
-                            <a class="page-link" href="{{ url_for('main.student_all_learningreport', page=pagination.prev_num, student_id=student.id) }}" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
+<div class="container mt-4">
+    <div class="row justify-content-start">
+        <div class="col-12 col-md-8 col-lg-6">
+            <h1 class="h2">{{ student.first_name }} {{ student.last_name }} 学習記録一覧</h1>
+            <div class="d-flex justify-content-end mb-3 pb-3">
+                <a class="btn btn-primary" href="/home/learningreport_add">新規追加</a>
+            </div>
+            <!--<div class="input-group mb-3 pb-3">
+                <input type="text" class="form-control" placeholder="検索キーワード" aria-label="検索キーワード" aria-describedby="basic-addon1">
+                <button class="btn btn-secondary" type="button">検索</button>
+            </div>-->
+                {% if learningreports %}
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>学習日</th>
+                                <th>学習コース</th>
+                                <th>科目</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for result in learningreports %}
+                                <tr>
+                                    <td><a class="link-secondary text-decoration-none" href="{{ url_for('main.detail_learningreport', learningreport_id=result.id) }}">{{ result.id }}</a></td>
+                                    <td><a class="link-secondary text-decoration-none" href="{{ url_for('main.detail_learningreport', learningreport_id=result.id) }}">{{ result.learn_date }}</a></td>
+                                    <td><a class="link-secondary text-decoration-none" href="{{ url_for('main.detail_learningreport', learningreport_id=result.id) }}">{{ result.course }}</a></td>
+                                    <td><a class="link-secondary text-decoration-none" href="{{ url_for('main.detail_learningreport', learningreport_id=result.id) }}">{{ result.subject }}</a></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% if pagination %}
+                        <nav>
+                            <ul class="pagination">
+                                {% if pagination.has_prev %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ url_for('main.student_all_learningreport', page=pagination.prev_num, student_id=student.id) }}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% for page in pagination.page_range %}
+                                    <li class="page-item {% if page == pagination.page %}active{% endif %}">
+                                        <a class="page-link" href="{{ url_for('main.student_all_learningreport', page=page, student_id=student.id) }}">{{ page }}</a>
+                                    </li>
+                                {% endfor %}
+                                {% if pagination.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ url_for('main.student_all_learningreport', page=pagination.next_num, student_id=student.id) }}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
                     {% endif %}
-                    {% for page in pagination.page_range %}
-                        <li class="page-item {% if page == pagination.page %}active{% endif %}">
-                            <a class="page-link" href="{{ url_for('main.student_all_learningreport', page=page, student_id=student.id) }}">{{ page }}</a>
-                        </li>
-                    {% endfor %}
-                    {% if pagination.has_next %}
-                        <li class="page-item">
-                            <a class="page-link" href="{{ url_for('main.student_all_learningreport', page=pagination.next_num, student_id=student.id) }}" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </nav>
-        {% endif %}
-    {% else %}
-        <p>No learning reports found.</p>
-    {% endif %}
+                {% else %}
+                    <p>No learning reports found.</p>
+                {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock %}

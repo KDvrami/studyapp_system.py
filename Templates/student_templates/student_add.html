@@ -3,61 +3,66 @@
 {% block title %}生徒情報追加{% endblock %}
 
 {% block content %}
-<h1 class="h2 text-center">生徒追加画面</h1>
-    <div class="d-flex justify-content-center">
-        <div class="col-md-6">
+<div class="container mt-4">
+    <div class="d-flex justify-content-start">
+        <div class="col-12 col-md-8 col-lg-6">
+            <h1 class="h2 text-center">生徒追加画面</h1>
             <form action="/home/student_add" method="post">
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
-                    <input class="btn btn-primary" type="submit">
-                </div>
-                <div class="mb-3">
+                <div class="row">
                     <label class="form-label">氏名</label>
-                    <div class="col-md-6">
-                        <div class="input-group">
-                            <input type="text" aria-label="First name" class="form-control" placeholder="First name" name="first_name">
-                            <input type="text" aria-label="Last name" class="form-control" placeholder="Last name" name="last_name">
-                        </div>
+                    <div class="col">
+                        <input type="text" aria-label="First name" class="form-control" placeholder="姓" name="first_name">
+                    </div>
+                    <div class="col">
+                        <input type="text" aria-label="Last name" class="form-control" placeholder="名" name="last_name">
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">ふりがな</label>
-                    <div class="col-md-6">
-                        <div class="input-group">
-                            <input type="text" aria-label="First name" class="form-control" placeholder="First name" name="hurigana_first_name">
-                            <input type="text" aria-label="Last name" class="form-control" placeholder="Last name" name="hurigana_last_name">
-                        </div>
+                <div class="row pt-3">
+                    <label class="form-label">氏名(かな)</label>
+                    <div class="col">
+                        <input type="text" aria-label="First name" class="form-control" placeholder="姓(かな)" name="hurigana_first_name">
+                    </div>
+                    <div class="col">
+                        <input type="text" aria-label="Last name" class="form-control" placeholder="名(かな)" name="hurigana_last_name">
                     </div>
                 </div>
-                <div class="mb-3">
+                <div class="pt-3">
                     <label class="form-label">学校</label>
-                    <div class="col-md-3">
+                    <div class="col">
                         <input type="text" class="form-control" placeholder="School Name" aria-label="Username" name="school">
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">学年</label>
-                    <div class="col-md-3">
-                        <select class="form-select" id="inputGroupSelect01" name="grade">
-                            <option value="小学1年生">小学1年生</option>
-                            <option value="小学2年生">小学2年生</option>
-                            <option value="小学3年生">小学3年生</option>
-                            <option value="小学4年生">小学4年生</option>
-                            <option value="小学5年生">小学5年生</option>
-                            <option value="小学6年生">小学6年生</option>
-                            <option value="中学1年生">中学1年生</option>
-                            <option value="中学2年生">中学2年生</option>
-                            <option value="中学3年生">中学3年生</option>
-                            <option value="高校1年生">高校1年生</option>
-                            <option value="高校2年生">高校2年生</option>
-                            <option value="高校3年生">高校3年生</option>
-                        </select>
+                    <div class="pt-3">
+                        <label class="form-label">学年</label>
+                        <div class="col-md-3">
+                            <select class="form-select" id="inputGroupSelect01" name="grade">
+                                <option value="小学1年生">小学1年生</option>
+                                <option value="小学2年生">小学2年生</option>
+                                <option value="小学3年生">小学3年生</option>
+                                <option value="小学4年生">小学4年生</option>
+                                <option value="小学5年生">小学5年生</option>
+                                <option value="小学6年生">小学6年生</option>
+                                <option value="中学1年生">中学1年生</option>
+                                <option value="中学2年生">中学2年生</option>
+                                <option value="中学3年生">中学3年生</option>
+                                <option value="高校1年生">高校1年生</option>
+                                <option value="高校2年生">高校2年生</option>
+                                <option value="高校3年生">高校3年生</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="input-group">
-                    <span class="input-group-text">備考欄</span>
-                    <textarea class="form-control" aria-label="With textarea" name="student_comments"></textarea>
+                    <div class="pt-4">
+                        <div class="input-group">
+                            <span class="input-group-text">備考欄</span>
+                            <textarea class="form-control" aria-label="With textarea" name="student_comments"></textarea>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3 pt-3">
+                        <button class="btn btn-primary" type="submit">登録する</button>
+                    </div>
                 </div>
             </form>
         </div>
     </div>
+</div>
 {% endblock %}

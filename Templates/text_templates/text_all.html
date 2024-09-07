@@ -3,62 +3,79 @@
 {% block title %}学習教材一覧{% endblock %}
 
 {% block content %}
-<h1 class="h2 text-center">テキスト一覧</h1>
 <div class="container mt-4">
-    {% if no_texts_message %}
-        <p>{{ no_texts_message }}</p>
-    {% endif %}
-    {% if invalid_page_message %}
-        <p>{{ invalid_page_message }}</p>
-    {% endif %}
-    <table class="table {% if texts|length == 0 %}border-0{% endif %}">
-        <thead>
-            <tr>
-                <th scope="col">テキスト名</th>
-                <th scope="col">操作</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for text in texts %}
-                <tr>
-                    <td>
-                        <a class="link-secondary text-decoration-none" href="{{ url_for('main.detail_text', text_id=text.id)}}">{{ text.text_name }}</a>
-                    </td>
-                    <td>
-                        <form action="{{ url_for('main.delete_text', text_id=text.id) }}" method="POST" style="display:inline;">
-                            <button type="submit" class="btn btn-danger btn-sm">削除</button>
-                        </form>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <nav aria-label="Page navigation">
-        <ul class="pagination">
-            {% if pagination.has_prev %}
-                <li class="page-item"><a class="page-link" href="{{ url_for('main.all_textdata', page=pagination.page - 1) }}">Previous</a></li>
-            {% else %}
-                <li class="page-item disabled"><span class="page-link">Previous</span></li>
-            {% endif %}
-
-            {% for page_num in pagination.pages %}
-                {% if page_num %}
-                    {% if page_num == pagination.page %}
-                        <li class="page-item active"><span class="page-link">{{ page_num }}</span></li>
-                    {% else %}
-                        <li class="page-item"><a class="page-link" href="{{ url_for('main.all_textdata', page=page_num) }}">{{ page_num }}</a></li>
-                    {% endif %}
-                {% else %}
-                    <li class="page-item disabled"><span class="page-link">...</span></li>
+    <div class="row justify-content-start">
+        <div class="col-12 col-md-8 col-lg-6">
+            <h1 class="h2 text-start text-center pb-3">学習教材一覧</h1>
+            <div class="d-flex justify-content-end mb-3 pb-3">
+                <a class="btn btn-primary"  type="button" href="/home/text_add">新規追加</a>
+            </div>
+            <!--<div class="input-group mb-3 pb-3">
+                <input type="text" class="form-control" placeholder="検索キーワード" aria-label="検索キーワード" aria-describedby="basic-addon1">
+                <button class="btn btn-secondary" type="button">検索</button>
+            </div>-->
+            <div class="container mt-4">
+                {% if no_texts_message %}
+                    <p>{{ no_texts_message }}</p>
                 {% endif %}
-            {% endfor %}
+                {% if invalid_page_message %}
+                    <p>{{ invalid_page_message }}</p>
+                {% endif %}
+                <table class="table {% if texts|length == 0 %}border-0{% endif %}">
+                    <thead>
+                        <tr>
+                            <th scope="col">テキスト名</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for text in texts %}
+                            <tr>
+                                <td>
+                                    <a class="link-secondary text-decoration-none" href="{{ url_for('main.detail_text', text_id=text.id)}}">{{ text.text_name }}</a>
+                                </td>
+                                <!--<td>
+                                    <a href="{{ url_for('main.edit_text', text_id=text.id) }}" class="btn btn-warning btn-sm">名前変更</a>
+                                </td>-->
+                                <td>
+                                    <form action="{{ url_for('main.delete_text', text_id=text.id) }}" method="POST" style="display:inline;">
+                                        <button type="submit" class="btn btn-danger btn-sm">×</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-end pt-3">
+                        {% if pagination.has_prev %}
+                            <li class="page-item"><a class="page-link" href="{{ url_for('main.all_textdata', page=pagination.page - 1) }}">Previous</a></li>
+                        {% else %}
+                            <li class="page-item disabled"><span class="page-link">前へ</span></li>
+                        {% endif %}
 
-            {% if pagination.has_next %}
-                <li class="page-item"><a class="page-link" href="{{ url_for('main.all_textdata', page=pagination.page + 1) }}">Next</a></li>
-            {% else %}
-                <li class="page-item disabled"><span class="page-link">Next</span></li>
-            {% endif %}
-        </ul>
-    </nav>
+                        {% for page_num in pagination.pages %}
+                            {% if page_num %}
+                                {% if page_num == pagination.page %}
+                                    <li class="page-item active"><span class="page-link">{{ page_num }}</span></li>
+                                {% else %}
+                                    <li class="page-item"><a class="page-link" href="{{ url_for('main.all_textdata', page=page_num) }}">{{ page_num }}</a></li>
+                                {% endif %}
+                            {% else %}
+                                <li class="page-item disabled"><span class="page-link">...</span></li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if pagination.has_next %}
+                            <li class="page-item"><a class="page-link" href="{{ url_for('main.all_textdata', page=pagination.page + 1) }}">Next</a></li>
+                        {% else %}
+                            <li class="page-item disabled"><span class="page-link">次へ</span></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

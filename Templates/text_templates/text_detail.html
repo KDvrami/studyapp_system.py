@@ -3,20 +3,23 @@
 {% block title %}学習教材情報詳細{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h1 class="text-center">Text Detail</h1>
-    <div class="d-flex align-items-center">
-        <a href="{{ url_for('main.view_pdf', text_id=textdata.id) }}" class="mr-3" target="_blank">
-            <i class="bi bi-file-earmark-pdf" style="font-size: 2rem;"></i>
-        </a>
-        <h2>{{ textdata.text_name }}</h2>
-    </div>
-    <a href="{{ url_for('main.edit_text', text_id=textdata.id) }}" class="btn btn-secondary">
-        <i class="bi bi-pencil"></i> Edit
-    </a>
-    <a href="{{ url_for('main.all_textdata') }}" class="btn btn-secondary">Back to List</a>
-    <div>
-        <iframe src="{{ url_for('main.view_pdf', text_id=textdata.id) }}" width="100%" height="500px"></iframe>
+<div class="container mt-4">
+    <div class="row justify-content-start">
+        <div class="col-12">
+            <h1 class="h2 text-start text-center pb-3">学習教材情報詳細</h1>
+            <div class="d-flex align-items-center">
+                <a href="{{ url_for('main.view_pdf', text_id=textdata.id) }}" class="mr-3" target="_blank">
+                    <i class="bi bi-file-earmark-pdf" style="font-size: 2rem;"></i>
+                </a>
+                <h2>{{ textdata.text_name }}</h2>
+            </div>
+            <div class="pt-3">
+                <iframe src="{{ url_for('main.view_pdf', text_id=textdata.id) }}" width="100%" height="800px"></iframe>
+            </div>
+            <div class="d-flex justify-content-end mb-3">
+                <a href="{{ url_for('main.all_textdata') }}" class="btn btn-secondary">学習教材一覧へ</a>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

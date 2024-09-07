@@ -3,67 +3,61 @@
 {% block title %}テスト結果編集{% endblock %}
 
 {% block content %}
-<h1 class="h2 text-center">テスト結果編集</h1>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
-                <a href="{{ url_for('main.detail_testresult', testresult_id=testresult.id) }}" class="btn btn-primary">詳細画面へ</a>
-            </div>
-            <form action="/home/testresult_all/testresult_detail_<int:testresult_id>/testresult_edit" method="post">
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </div>
+<div class="container mt-4">
+    <div class="row justify-content-start">
+        <div class="col-12 col-md-8 col-lg-6">
+            <h1 class="h2 text-start text-center pb-3">テスト結果編集</h1>
+            <form action="{{ url_for('main.edit_testresult', testresult_id=testresult.id) }}" method="post">
                 <div class="mb-3">
-                    <div class="col-md-3">
+                    <div class="col-lg-6">
                         <label class="form-label">テスト実施日</label>
-                        <input type="text" class="form-control" value="{{ testresult.test_date }}">
+                        <input type="date" class="form-control" name="test_date" value="{{ testresult.test_date }}">
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">テスト名</label>
-                    <div class="col-md-3">
-                        <input type="text" class="form-control" value="{{ testresult.test_name }}">
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="test_name" value="{{ testresult.test_name }}">
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">総合順位</label>
-                    <div class="col-md-6">
+                    <div class="col-lg-6">
                         <div class="input-group">
-                            <input type="text" class="form-control" value="{{ testresult.user_total_rank }}">
+                            <input type="text" class="form-control" name="user_total_rank" value="{{ testresult.user_total_rank }}">
                             <span class="input-group-text">位/</span>
-                            <input type="text" class="form-control" value="{{ testresult.all_total_rank }}">
+                            <input type="text" class="form-control" name="all_total_rank" value="{{ testresult.all_total_rank }}">
                             <span class="input-group-text">位中</span>
                         </div>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">学年</label>
-                    <div class="col-md-3">
-                        <input type="text" class="form-control" value="{{ testresult.grade }}">
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="grade" value="{{ testresult.grade }}">
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">氏名</label>
-                    <div class="col-md-6">
+                    <div class="col-lg-6">
                         <div class="input-group">
-                            <input type="text" class="form-control" value="{{ testresult.first_name }}">
-                            <input type="text" class="form-control" value="{{ testresult.last_name }}">
+                            <input type="text" class="form-control" name="first_name" value="{{ testresult.first_name }}">
+                            <input type="text" class="form-control" name="last_name" value="{{ testresult.last_name }}">
                         </div>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">科目1</label>
-                    <div class="col-md-3">
-                        <input type="text" class="form-control" value="{{ testresult.subject_one }}">
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="subject_one" value="{{ testresult.subject_one }}">
                     </div>
                 </div>
                 <div class="mb-3">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-lg-6">
                             <label class="form-label">スコア1</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" value="{{ testresult.score_one }}">
+                                <input type="text" class="form-control" name="score_one" value="{{ testresult.score_one }}">
                                 <span class="input-group-text">点</span>
                             </div>
                         </div>
@@ -71,27 +65,27 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label">科目1順位</label>
-                    <div class="col-md-6">
+                    <div class="col-lg-6">
                         <div class="input-group">
-                            <input type="text" class="form-control" value="{{ testresult.user_rank_one }}">
+                            <input type="text" class="form-control" name="user_rank_one" value="{{ testresult.user_rank_one }}">
                             <span class="input-group-text">位/</span>
-                            <input type="text" class="form-control" value="{{ testresult.all_rank_one }}">
+                            <input type="text" class="form-control" name="all_rank_one" value="{{ testresult.all_rank_one }}">
                             <span class="input-group-text">位中</span>
                         </div>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">科目2</label>
-                    <div class="col-md-3">
-                        <input type="text" class="form-control" value="{{ testresult.subject_two }}">
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="subject_two" value="{{ testresult.subject_two }}">
                     </div>
                 </div>
                 <div class="mb-3">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-lg-6">
                             <label class="form-label">スコア2</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" value="{{ testresult.score_two }}">
+                                <input type="text" class="form-control" name="score_two" value="{{ testresult.score_two }}">
                                 <span class="input-group-text">点</span>
                             </div>
                         </div>
@@ -99,27 +93,27 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label">科目2順位</label>
-                    <div class="col-md-6">
+                    <div class="col-lg-6">
                         <div class="input-group">
-                            <input type="text" class="form-control" value="{{ testresult.user_rank_two }}">
+                            <input type="text" class="form-control" name="user_rank_two" value="{{ testresult.user_rank_two }}">
                             <span class="input-group-text">位/</span>
-                            <input type="text" class="form-control" value="{{ testresult.all_rank_two }}">
+                            <input type="text" class="form-control" name="all_rank_two" value="{{ testresult.all_rank_two }}">
                             <span class="input-group-text">位中</span>
                         </div>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">科目3</label>
-                    <div class="col-md-3">
-                        <input type="text" class="form-control" value="{{ testresult.subject_three }}">
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="subject_three" value="{{ testresult.subject_three }}">
                     </div>
                 </div>
                 <div class="mb-3">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-lg-6">
                             <label class="form-label">スコア3</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" value="{{ testresult.score_three }}">
+                                <input type="text" class="form-control" name="score_three" value="{{ testresult.score_three }}">
                                 <span class="input-group-text">点</span>
                             </div>
                         </div>
@@ -127,27 +121,27 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label">科目3順位</label>
-                    <div class="col-md-6">
+                    <div class="col-lg-6">
                         <div class="input-group">
-                            <input type="text" class="form-control" value="{{ testresult.user_rank_three }}">
+                            <input type="text" class="form-control" name="user_rank_three" value="{{ testresult.user_rank_three }}">
                             <span class="input-group-text">位/</span>
-                            <input type="text" class="form-control" value="{{ testresult.all_rank_three }}">
+                            <input type="text" class="form-control" name="all_rank_three" value="{{ testresult.all_rank_three }}">
                             <span class="input-group-text">位中</span>
                         </div>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">科目4</label>
-                    <div class="col-md-3">
-                        <input type="text" class="form-control" value="{{ testresult.subject_four }}">
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="subject_four" value="{{ testresult.subject_four }}">
                     </div>
                 </div>
                 <div class="mb-3">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-lg-6">
                             <label class="form-label">スコア4</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" value="{{ testresult.score_four }}">
+                                <input type="text" class="form-control" name="score_four" value="{{ testresult.score_four }}">
                                 <span class="input-group-text">点</span>
                             </div>
                         </div>
@@ -155,27 +149,27 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label">科目4順位</label>
-                    <div class="col-md-6">
+                    <div class="col-lg-6">
                         <div class="input-group">
-                            <input type="text" class="form-control" value="{{ testresult.user_rank_four }}">
+                            <input type="text" class="form-control" name="user_rank_four" value="{{ testresult.user_rank_four }}">
                             <span class="input-group-text">位/</span>
-                            <input type="text" class="form-control" value="{{ testresult.all_rank_four }}">
+                            <input type="text" class="form-control" name="all_rank_four" value="{{ testresult.all_rank_four }}">
                             <span class="input-group-text">位中</span>
                         </div>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">科目5</label>
-                    <div class="col-md-3">
-                        <input type="text" class="form-control" value="{{ testresult.subject_five }}">
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="subject_five" value="{{ testresult.subject_five }}">
                     </div>
                 </div>
                 <div class="mb-3">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-lg-6">
                             <label class="form-label">スコア5</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" value="{{ testresult.score_five }}">
+                                <input type="text" class="form-control" name="score_five" value="{{ testresult.score_five }}">
                                 <span class="input-group-text">点</span>
                             </div>
                         </div>
@@ -183,14 +177,20 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label">科目5順位</label>
-                    <div class="col-md-6">
+                    <div class="col-lg-6">
                         <div class="input-group">
-                            <input type="text" class="form-control" value="{{ testresult.user_rank_five }}">
+                            <input type="text" class="form-control" name="user_rank_five" value="{{ testresult.user_rank_five }}">
                             <span class="input-group-text">位/</span>
-                            <input type="text" class="form-control" value="{{ testresult.all_rank_five }}">
+                            <input type="text" class="form-control" name="all_rank_five" value="{{ testresult.all_rank_five }}">
                             <span class="input-group-text">位中</span>
                         </div>
                     </div>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end pt-3">
+                    <button type="submit" class="btn btn-primary">登録する</button>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3 pt-3">
+                    <a href="{{ url_for('main.detail_testresult', testresult_id=testresult.id) }}" class="btn btn-secondary">詳細画面へ</a>
                 </div>
             </form>
         </div>

@@ -3,26 +3,22 @@
 {% block title %}学習教材情報編集{% endblock %}
 
 {% block content %}
-<h1 class="h2 text-center">テキスト編集</h1>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
-                <a href="{{ url_for('main.detail_text', text_id=text.id) }}" class="btn btn-primary">詳細画面へ</a>
-            </div>
-            <form action="{{ url_for('main.edit_text', text_id=text.id) }}" method="POST" enctype="multipart/form-data">
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </div>
+<div class="container mt-4">
+    <div class="row justify-content-start">
+        <div class="col-12 col-md-8 col-lg-6">
+            <h2>学習教材名編集</h2>
+            <form action="{{ url_for('main.edit_text', text_id=text.id) }}" method="POST">
                 <div class="mb-3">
-                    <label for="txt_name" class="form-label">テキスト名</label>
+                    <label for="text_name" class="form-label">学習教材名</label>
                     <input type="text" class="form-control" id="text_name" name="text_name" value="{{ text.text_name }}" required>
                 </div>
-                <div class="mb-3">
-                    <label for="text" class="form-label">pdfファイル</label>
-                    <input type="file" class="form-control" id="text" name="text" accept=".pdf" required>
+                <div class="d-flex justify-content-end mb-3">
+                    <button type="submit" class="btn btn-primary">更新する</button>
                 </div>
             </form>
+            <div class="d-flex justify-content-end mb-3">
+                <a href="{{ url_for('main.all_textdata') }}" class="btn btn-secondary">キャンセルする</a>
+            </div>
         </div>
     </div>
 </div>

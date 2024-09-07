@@ -50,7 +50,7 @@ def add_student():
             student_comments=student_comments
         )
         db.close()
-        return redirect(url_for('main.add_student'))
+        return redirect(url_for('main.all_student'))
     return render_template('/student_templates/student_add.html')
 
 
@@ -188,7 +188,7 @@ def edit_student(student_id):
         student.grade = request.form['grade']
         student.student_comments = request.form['student_comments']
         student.save()
-        return redirect(url_for('main.edit_student', student_id=student_id))
+        return redirect(url_for('main.detail_student', student_id=student_id))
     return render_template('/student_templates/student_edit.html', student = student)
 
 
@@ -281,7 +281,7 @@ def add_learningreport():
             learningreport_comments=learningreport_comments
         )
         db.close()
-        return redirect(url_for('main.add_learningreport'))
+        return redirect(url_for('main.all_learningreport'))
     return render_template('/learningreport_templates/learningreport_add.html')
 
 
@@ -300,7 +300,7 @@ def edit_learningreport(learningreport_id):
         learningreport.used_text = request.form['used_text']
         learningreport.learningreport_comments = request.form['learningreport_comments']
         learningreport.save()
-        return redirect(url_for('main.edit_learningreport', learningreport_id=learningreport_id))
+        return redirect(url_for('main.all_learningreport', learningreport_id=learningreport_id))
     return render_template('/learningreport_templates/learningreport_edit.html',learningreport=learningreport)
 
 
@@ -421,7 +421,7 @@ def add_testresult():
             all_rank_five=all_rank_five
         )
         db.close()
-        return redirect(url_for('main.add_testresult'))
+        return redirect(url_for('main.all_testresult'))
     return render_template('/testresult_templates/testresult_add.html')
 
 #テスト結果詳細
@@ -464,12 +464,12 @@ def edit_testresult(testresult_id):
         testresult.all_rank_three= request.form['all_rank_three']
         testresult.all_rank_four= request.form['all_rank_four']
         testresult.all_rank_five= request.form['all_rank_five']
-        return redirect(url_for('main.edit_testresult', testresult_id=testresult_id))
+        return redirect(url_for('main.all_testresult', testresult_id=testresult_id))
     return render_template("/testresult_templates/testresult_edit.html", testresult=testresult)
 
 
 # テキスト追加操作画面
-@main_bp.route("/home/text_add")
+@main_bp.route("/home/text_add", methods=['GET'])
 @login_required
 def add_text():
     pdf_files = [file for file in os.listdir('files') if file.endswith('.pdf')]
@@ -506,7 +506,7 @@ def upload_text():
         )
         text_data.save()
 
-        return redirect(url_for('main.add_text'))
+        return redirect(url_for('main.all_textdata'))
     else:
         flash('File is not a PDF')
         return redirect(request.url)
@@ -574,13 +574,14 @@ def view_pdf(text_id):
 
     return send_file(file_path, mimetype='application/pdf', as_attachment=False, download_name=file_name)
 
-# テキスト編集(表示)
-@main_bp.route("/home/text_all/text_detail_<int:text_id>/text_edit", methods=['GET'])
+# 学習教材名編集
+@main_bp.route("/home/text_all/text_detail_<int:text_id>/text_edit", methods=['GET', 'POST'])
 @login_required
 def edit_text(text_id):
-    try:
-        text = TextData.get(TextData.id == text_id)
-    except TextData.DoesNotExist:
-        return redirect(url_for('main.all_textdata'))
-
+    text = TextData.get(TextData.id == text_id)
+    if request.method == 'POST':
+        text.taxt_name = request.form['text_name']
+        text.save()
+        flash('Text name updated successfully!', 'success')
+        return redirect(url_for('main.all_textdata', text_id=text_id))
     return render_template('/text_templates/text_edit.html', text=text)
